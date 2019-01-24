@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Being.create(family: "League", can_be_owned: false)
 epl = League.create(name: "Premier League", country: "England/Wales", being_id: Being.find_by(family: "League").id)
 arsenal = Club.create(name: "Arsenal", location: "North London", founded: "1900")
 epl.clubs << arsenal
