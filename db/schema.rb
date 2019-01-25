@@ -63,10 +63,30 @@ ActiveRecord::Schema.define(version: 2019_01_25_135931) do
     t.integer "possession_id"
   end
 
+  create_table "portfolios", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.float "balance"
+    t.float "net_worth"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "possessions", force: :cascade do |t|
     t.integer "being_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "stocks", force: :cascade do |t|
+    t.string "stock_name"
+    t.string "symbol"
+    t.boolean "active"
+    t.string "trade_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "portfolio_id"
   end
 
   create_table "users", force: :cascade do |t|
