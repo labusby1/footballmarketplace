@@ -1,10 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+#-----------------------------------Seeds---------------------------------------
+
 Being.create(family: "League", can_be_owned: false)
 Being.create(family: "Club", can_be_owned: true)
 Being.create(family: "Player", can_be_owned: true)
@@ -27,3 +22,25 @@ Manager.create(name: "Emery",nationality: "Spain", dob: "1975",club_id: arsenal.
 
 
 Stock.create(stock_name: "Arsenal", symbol: "ARS", active: false, trade_type: "Club", portfolio_id: nil, possession_id: club.id)
+
+require 'open-uri'
+require 'nokogiri'
+doc = Nokogiri::HTML(open("http://www.footballsquads.co.uk/eng/2018-2019/engprem.htm"))
+
+club_entries= doc.css('h5')
+
+for i in 0..19
+    Club.create(name: club_entries[i].css('a').text, location: nil, founded: nil, possession_id: club.id)
+    club_entries
+    doc2 = Nokogiri::HTML(open(""))
+end
+
+
+#-------------------------------------------------------------------------------
+# https://raw.githubusercontent.com/drraq/PremierLeague.json/master/data.json
+#-------------------------------------------------------------------------------
+# Add acknowledgement of this guys website sometime. Mention the copyright thing
+# he has. 
+require 'open-uri'
+require 'nokogiri'
+require 'json'
