@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_24_210810) do
+ActiveRecord::Schema.define(version: 2019_01_25_134714) do
 
   create_table "beings", force: :cascade do |t|
     t.string "family"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2019_01_24_210810) do
     t.string "founded"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "possession_id"
   end
 
   create_table "clubs_leagues", id: false, force: :cascade do |t|
@@ -47,6 +48,13 @@ ActiveRecord::Schema.define(version: 2019_01_24_210810) do
     t.string "nationality"
     t.string "dob"
     t.integer "club_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "possession_id"
+  end
+
+  create_table "possessions", force: :cascade do |t|
+    t.integer "being_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

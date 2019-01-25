@@ -6,10 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Being.create(family: "League", can_be_owned: false)
+Being.create(family: "Club", can_be_owned: true)
+Being.create(family: "Player", can_be_owned: true)
+club = Possession.create(being_id: Being.find_by(family: "Club").id)
+#player = Possession.create(being_id: Being.find_by(family: "Player").id)
 epl = League.create(name: "Premier League", country: "England/Wales", being_id: Being.find_by(family: "League").id)
-arsenal = Club.create(name: "Arsenal", location: "North London", founded: "1900")
+arsenal = Club.create(name: "Arsenal", location: "North London", founded: "1900", possession_id: club.id)
 epl.clubs << arsenal
 championsleague = League.create(name: "Champions League", country: "Europe", being_id: 1)
-chelsea = Club.create(name: "Chelsea", location: "East London", founded: "1901")
+chelsea = Club.create(name: "Chelsea", location: "East London", founded: "1901", possession_id: club.id)
 epl.clubs << chelsea
 championsleague.clubs << chelsea
