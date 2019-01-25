@@ -23,19 +23,6 @@ Manager.create(name: "Emery",nationality: "Spain", dob: "1975",club_id: arsenal.
 
 Stock.create(stock_name: "Arsenal", symbol: "ARS", active: false, trade_type: "Club", portfolio_id: nil, possession_id: club.id)
 
-require 'open-uri'
-require 'nokogiri'
-doc = Nokogiri::HTML(open("http://www.footballsquads.co.uk/eng/2018-2019/engprem.htm"))
-
-club_entries= doc.css('h5')
-
-for i in 0..19
-    Club.create(name: club_entries[i].css('a').text, location: nil, founded: nil, possession_id: club.id)
-    club_entries
-    doc2 = Nokogiri::HTML(open(""))
-end
-
-
 #-------------------------------------------------------------------------------
 # https://raw.githubusercontent.com/drraq/PremierLeague.json/master/data.json
 #-------------------------------------------------------------------------------
@@ -44,3 +31,10 @@ end
 require 'open-uri'
 require 'nokogiri'
 require 'json'
+
+doc = open('https://raw.githubusercontent.com/drraq/PremierLeague.json/master/data.json')
+file = File.read(doc)
+data_hash = JSON.parse(file)
+for i in 0..19
+  Club.create(name: data_hash["clubs"][i]["name"], location: data_hash["clubs"][i]["stadium"], founded: "2019", possession_id: club.id)
+end
