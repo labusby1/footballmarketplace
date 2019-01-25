@@ -3,4 +3,5 @@ class Possession < ActiveRecord::Base
   has_many :clubs
   has_many :players
   has_many :managers
+  has_many :stocks
 end

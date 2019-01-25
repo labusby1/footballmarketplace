@@ -24,3 +24,6 @@ Player.create(name: "Ozil", nationality: "Germany", dob: "1989", club_id: arsena
 #arsenal.players << ozil
 
 Manager.create(name: "Emery",nationality: "Spain", dob: "1975",club_id: arsenal.id, possession_id: manager.id)
+
+
+Stock.create(stock_name: "Arsenal", symbol: "ARS", active: false, trade_type: "Club", portfolio_id: nil, possession_id: club.id)
