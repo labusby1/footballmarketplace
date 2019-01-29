@@ -4,7 +4,7 @@ class CreateSellers < ActiveRecord::Migration[5.2]
       t.integer :portfolio_id
       t.float :retail_price
       
-      r.timestamps
+      t.timestamps
     end
   end
 end
