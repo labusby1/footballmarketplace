@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_29_140045) do
+ActiveRecord::Schema.define(version: 2019_01_29_170805) do
 
   create_table "beings", force: :cascade do |t|
     t.string "family"
@@ -83,11 +83,20 @@ ActiveRecord::Schema.define(version: 2019_01_29_140045) do
     t.string "stock_name"
     t.string "symbol"
     t.boolean "active"
-    t.string "trade_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "portfolio_id"
     t.integer "possession_id"
+    t.integer "being_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer "buyer_id"
+    t.integer "seller_id"
+    t.float "transaction_cost"
+    t.integer "hash_of_stocks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
