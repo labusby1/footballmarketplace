@@ -1,10 +1,5 @@
 #-----------------------------------Seeds---------------------------------------
 
-
-
-
-
-
 #-------------------------------------------------------------------------------
 #------------------------------Beings-------------------------------------------
 Being.create(family: "League", can_be_owned: false)
@@ -39,9 +34,12 @@ for i in 0..19
 end
 
 #-- arsenal players --
-num_of_players = data_hash["players"].length
-for i in 0..num_of_players
-  if data_hash["players"][i]["current_club"] == "Arsenal"
-    #Player.create(name: data_hash["players"][i]["last_name"], nationality: data_hash["players"][i]["nationality"], dob: "2019", club_id: Club.find_by(name: "Arsenal").id, possession_id: player.id)
-  end
+num_of_players =(data_hash["players"].length) -1
+for i in 0..num_of_players 
+  Player.create(name: data_hash["players"][i]["last_name"], nationality: data_hash["players"][i]["nationality"], dob: "2019", club_id: Club.find_by(name: data_hash["players"][i]["current_club"]).id, possession_id: player.id)
 end
+
+
+#-------------------------------------------------------------------------------
+Portfolio.create(user_id: 1, first_name: "Buke", last_name: "Lusby", balance: 1000, net_worth: 1000)
+Stock.create(stock_name: "Arsenal", symbol: "ARS", active: true, trade_type: "Club", portfolio_id: 1, possession_id: 1)

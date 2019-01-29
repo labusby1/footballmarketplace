@@ -1,0 +1,7 @@
+STOCKS
+*test stocks in database
+  - stocks must be associated to player, manager or club through possessions
+  - mabye use rich many to many assocation for that
+  - make the assumption that stock is the very bottom of the table 
+  - that way, association of stocks to others picks up attributes higher
+  - stock's trade_type should really be being_id, which is the association to possessions.
