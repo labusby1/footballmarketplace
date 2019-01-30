@@ -5,3 +5,21 @@ STOCKS
   - make the assumption that stock is the very bottom of the table 
   - that way, association of stocks to others picks up attributes higher
   - stock's trade_type should really be being_id, which is the association to possessions.
+  
+  
+PORTFOLIOS
+* Create a basic page for portfolios
+  - should have a side panel with user's information (first_name, last_name,
+    balance(if user is looking at it), net_worth, stocks they own)
+  - should have a table(graph) for their net_worth over time.
+  - should have somesort of drop down menu centered on page. This will "contain"
+    the list of stocks the user has.
+  - link to create a sale
+  - link to add more fictional money to user 
+* When a user signs up they should be sent to create their portfolio
+* User shouldn't be able to make purchases until they create their portfolios
+
+    
+MARTKET PAGE
+* there should be a page for showing the latest stocks for sale.
+* links to purchase the stocks
