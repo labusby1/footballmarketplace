@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_30_140337) do
+ActiveRecord::Schema.define(version: 2019_01_30_142614) do
 
   create_table "beings", force: :cascade do |t|
     t.string "family"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2019_01_30_140337) do
     t.float "transaction_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "moveable"
   end
 
   create_table "users", force: :cascade do |t|
