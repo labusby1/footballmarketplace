@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_30_135238) do
+ActiveRecord::Schema.define(version: 2019_01_30_140337) do
 
   create_table "beings", force: :cascade do |t|
     t.string "family"
@@ -82,6 +82,13 @@ ActiveRecord::Schema.define(version: 2019_01_30_135238) do
 
   create_table "possessions", force: :cascade do |t|
     t.integer "being_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sellers", force: :cascade do |t|
+    t.integer "portfolio_id"
+    t.float "retail_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
