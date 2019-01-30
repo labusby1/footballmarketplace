@@ -42,4 +42,5 @@ end
 
 #-------------------------------------------------------------------------------
 Portfolio.create(user_id: 1, first_name: "Buke", last_name: "Lusby", balance: 1000, net_worth: 1000)
-Stock.create(stock_name: "Arsenal", symbol: "ARS", active: true, trade_type: "Club", portfolio_id: 1, possession_id: 1)
+Stock.create(stock_name: "Arsenal", symbol: "ARS", active: true, being_id: "Club", portfolio_id: 1, possession_id: 1)
+Portfolio.create(user_id: 2, first_name: "Second", last_name: "Person", balance: 1000, net_worth: 1000)
