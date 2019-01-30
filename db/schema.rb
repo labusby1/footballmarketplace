@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_30_134906) do
+ActiveRecord::Schema.define(version: 2019_01_30_135238) do
 
   create_table "beings", force: :cascade do |t|
     t.string "family"
     t.boolean "can_be_owned"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "buyers", force: :cascade do |t|
+    t.integer "portfolio_id"
+    t.float "purchase_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
