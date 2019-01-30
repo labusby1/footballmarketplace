@@ -18,7 +18,8 @@ PORTFOLIOS
   - link to add more fictional money to user 
 * When a user signs up they should be sent to create their portfolio
 * User shouldn't be able to make purchases until they create their portfolios
-
+* User should be able to view their portfolio
+* User should be able to edit their information 
     
 MARTKET PAGE
 * there should be a page for showing the latest stocks for sale.
