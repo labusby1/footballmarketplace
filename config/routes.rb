@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   
   #nested resourses for users/:user_id/portfolios/:portfolio_id/onthemarkets/...
+  
   resources :users, shallow: true do
     resource :portfolio do
       resources :onthemarkets

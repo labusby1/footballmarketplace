@@ -1,0 +1,12 @@
+hello
+
+<%= form_for @onthemarket, url: onthemarket_path(id: current_user.id) do |f| %>
+  <div class="form-group">
+    <%= f.label :buying, "Purchasing or Selling" %>
+    <%= f.select :buying, ['Puchasing', 'Selling'], {}, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.submit "Create an Offer", class: 'btn btn-primary' %>
+  </div>
+<% end %>
