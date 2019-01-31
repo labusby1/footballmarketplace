@@ -29,3 +29,8 @@ MARTKET PAGE
 ONTHEMARKET
 * create a blank form when someone wants to put stocks on the market
 * form creates an onthemarket object
+* onthemarket object just created will make a search for an onthemarket object 
+    with corresponding information
+* when an aggreable object is found, the transactor will be created which will 
+    know the buyer, seller, stocks for sale and price which will be charged
+    

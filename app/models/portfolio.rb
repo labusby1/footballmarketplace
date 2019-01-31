@@ -3,5 +3,5 @@ class Portfolio < ActiveRecord::Base
   has_many :stocks
   belongs_to :buyer, optional: true
   belongs_to :seller, optional: true
-  belongs_to :onthemarket, optional: true
+  has_many :onthemarkets
 end
