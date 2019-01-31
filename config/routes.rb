@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
-  resources :users do
-    resource :portfolio
+  
+  #nested resourses for users/:user_id/portfolios/:portfolio_id/onthemarkets/...
+  resources :users, shallow: true do
+    resource :portfolio do
+      resources :onthemarkets
+    end
   end
-  resources :portfolios do
-    resources :onthemarkets
-  end
+
 end
