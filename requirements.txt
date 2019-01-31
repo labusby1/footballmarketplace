@@ -24,3 +24,8 @@ PORTFOLIOS
 MARTKET PAGE
 * there should be a page for showing the latest stocks for sale.
 * links to purchase the stocks
+
+
+ONTHEMARKET
+* create a blank form when someone wants to put stocks on the market
+* form creates an onthemarket object
