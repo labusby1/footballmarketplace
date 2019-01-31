@@ -4,4 +4,7 @@ Rails.application.routes.draw do
   resources :users do
     resource :portfolio
   end
+  resources :portfolios do
+    resources :onthemarkets
+  end
 end
