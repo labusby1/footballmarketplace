@@ -18,7 +18,13 @@
           <h4 class = "text-center well">Here will be a table(graph) of net_worth over time</h4>
           <h4 class = "text-center well">And here is a link to create a purchase or sale
           <!-- Here is a link to a form to create a marketplace transaction (object: onthemarket) -->
-          <%= link_to "Create a marketplace transaction", new_user_portfolio_onthemarket_path(user_id: params[:id]) %></h4>
+          <%= link_to "Create a marketplace transaction", new_user_portfolio_onthemarket_path(user_id: params[:id]) %>
+          
+          <br/>
+          <%= link_to "Purchase stocks on the marketpalce", new_user_portfolio_onthemarket_path(buying: true, user_id: params[:id]), class: 'btn btn-success btn-lg btn-block' %>
+          <br/>
+          <br/>
+          <%= link_to "Sell stocks from your portfolio", new_user_portfolio_onthemarket_path(buying: false, user_id: params[:id]), class: 'btn btn-success btn-lg' %></h4>
           <h4 class = "text-center well"> And here will be the stocks drop down menu</h4>
         </div>
       </div>

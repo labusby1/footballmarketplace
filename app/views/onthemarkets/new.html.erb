@@ -5,7 +5,11 @@
     <h1 class="text-center">Create a marketplace transaction</h1>
     <p class="text-center">Fillout the form with your ideal transaction</p>
     <div class="well">
-      <%= render 'form' %> 
+      <% if params[:buying] == 'true' %>
+        <%= render 'form' %> 
+      <% else %>
+        <h1>ELSE</h1>
+      <% end %>
     </div>
   </div>
 </div>
