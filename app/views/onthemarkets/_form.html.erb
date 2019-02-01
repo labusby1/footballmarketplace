@@ -2,12 +2,19 @@ hello
 
 <%= form_for @onthemarket, url: user_portfolio_onthemarkets_path do |f| %>
   <div class="form-group">
-    <%= f.label :buying, "Purchasing or Selling" %>
-    <%= f.select :buying, ['Puchasing', 'Selling'], {}, class: 'form-control' %>
+    <%= f.hidden_field :buying, :value => params[:buying] %>
   </div>
   <div class = "form-group">
     <%= f.label :stocks_on_market %>
-    <%= f.select :stocks_on_market, [Stock.find(1).symbol => 100], class: 'form-control' %>
+    <!-- This will be changed in the future. This right now will display all distinct stock symbols so that
+    user can select which stock they wish to buy. The problem however is that only stocks on the market shoulld
+    be displayed. So I will change this when i've built out some placeholder stocks on the market.-->
+    <% array_of_symbols = [] %>
+    <% for i in 0..Stock.select(:symbol).distinct.length - 1 %>
+      <% array_of_symbols.append(Stock.select(:symbol).distinct[i].symbol) %>
+    <% end %>
+    <%= f.select :stocks_on_market, array_of_symbols, class: 'form-control' %>
+    <%= f.number_field :stocks_on_market, min: 1, max: 999999, class: 'form-control' %>
   </div>
   <div class = "form-group">
     <%= f.label :least_possible %>
