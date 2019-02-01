@@ -10,7 +10,10 @@ class OnthemarketsController < ApplicationController
     # Ensure that we have the user that fills out form
     @user = User.find(params[:user_id])
     # Create onthemarket linked to specific user
-    @onthemarket = @user.build_onthemarket(onthemarket_params)
+    @onthemarket = @user.portfolio.onthemarkets.new(onthemarket_params)
+    #Form inputs for stocks_on_market and least_possible need to be converted from string to hash
+    @onthemarket.stocks_on_market = JSON.parse params[:onthemarket][:stocks_on_market].gsub('=>', ':')
+    @onthemarket.least_possible = JSON.parse params[:onthemarket][:least_possible].gsub('=>', ':')
     if @onthemarket.save
       flash[:success] = "Onthemarket Created!"
       redirect_to root_path
@@ -22,6 +25,6 @@ class OnthemarketsController < ApplicationController
   private
   #white list the onthemarket parameters
     def onthemarket_params
-      params.require(:onthemarket).permit(:buying, :portfolio_id, :stocks_on_market, :least_possible)
+      params.require(:onthemarket).permit(:buying, :portfolio_id )
     end
 end

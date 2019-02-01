@@ -1,17 +1,20 @@
 hello
 
-<%= form_for @onthemarket, url: new_user_portfolio_onthemarket_path do |f| %>
+<%= form_for @onthemarket, url: user_portfolio_onthemarkets_path do |f| %>
   <div class="form-group">
     <%= f.label :buying, "Purchasing or Selling" %>
     <%= f.select :buying, ['Puchasing', 'Selling'], {}, class: 'form-control' %>
   </div>
   <div class = "form-group">
     <%= f.label :stocks_on_market %>
-    <%= f.select :stocks_on_market, [Stock.find(1).symbol => 100], {}, class: 'form-control' %>
+    <%= f.select :stocks_on_market, [Stock.find(1).symbol => 100], class: 'form-control' %>
   </div>
   <div class = "form-group">
     <%= f.label :least_possible %>
-    <%= f.select :stocks_on_market, [Stock.find(1).symbol => 100], {}, class: 'form-control' %>
+    <%= f.select :least_possible, [Stock.find(1).symbol => 100], {}, class: 'form-control' %>
+  </div>
+  <div class = "form-group">
+    <%= f.hidden_field :portfolio_id, :value => current_user.id %>
   </div>
   <div class="form-group">
     <%= f.submit "Propose your transaction", class: 'btn btn-primary' %>
