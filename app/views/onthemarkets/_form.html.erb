@@ -1,11 +1,9 @@
-hello
-
 <%= form_for @onthemarket, url: user_portfolio_onthemarkets_path do |f| %>
   <div class="form-group">
     <%= f.hidden_field :buying, :value => params[:buying] %>
   </div>
   <div class = "form-group">
-    <%= f.label :stocks_on_market %>
+    <%= f.label :stocks_on_market, 'Choose a stock by it\'s symbol you wish to purchase' %>
     <!-- This will be changed in the future. This right now will display all distinct stock symbols so that
     user can select which stock they wish to buy. The problem however is that only stocks on the market shoulld
     be displayed. So I will change this when i've built out some placeholder stocks on the market.-->
@@ -14,11 +12,14 @@ hello
       <% array_of_symbols.append(Stock.select(:symbol).distinct[i].symbol) %>
     <% end %>
     <%= f.select :stocks_on_market, array_of_symbols, class: 'form-control' %>
-    <%= f.number_field :stocks_on_market, min: 1, max: 999999, class: 'form-control' %>
   </div>
   <div class = "form-group">
-    <%= f.label :least_possible %>
-    <%= f.select :least_possible, [Stock.find(1).symbol => 100], {}, class: 'form-control' %>
+    <%= f.label :ideal_number_sold, 'Enter your ideal transaction ammount of stocks listed above' %>
+    <%= f.number_field :ideal_number_sold, min: 1, max: 999999, class: 'form-control' %>
+  </div>
+  <div class = "form-group">
+    <%= f.label :least_possible, 'Enter the minimum number of stocks which you would want to have this transaction completed' %>
+    <%= f.number_field :least_possible, min: 1, max: 999999, class: 'form-control' %>
   </div>
   <div class = "form-group">
     <%= f.hidden_field :portfolio_id, :value => current_user.id %>
