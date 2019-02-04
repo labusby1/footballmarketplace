@@ -20,11 +20,6 @@ PORTFOLIOS
 * User shouldn't be able to make purchases until they create their portfolios
 * User should be able to view their portfolio
 * User should be able to edit their information 
-    
-MARTKET PAGE
-* there should be a page for showing the latest stocks for sale.
-* links to purchase the stocks
-
 
 ONTHEMARKET
 * create a blank form when someone wants to put stocks on the market
@@ -34,3 +29,6 @@ ONTHEMARKET
 * when an aggreable object is found, the transactor will be created which will 
     know the buyer, seller, stocks for sale and price which will be charged
     
+MARTKET PAGE
+* there should be a page for showing the latest stocks for sale.
+* links to purchase the stocks

@@ -22,6 +22,10 @@ class OnthemarketsController < ApplicationController
     end
   end
   
+  def index
+    
+  end
+  
   private
   #white list the onthemarket parameters
     def onthemarket_params
