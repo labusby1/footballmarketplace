@@ -32,7 +32,7 @@
     position: relative;
     width: 140px;
     height: 125px;
-    background-color: red;
+    background-color: #FFD700;
     border-radius: 0 0 140px 140px;
     display: inline-block;
 }
@@ -44,7 +44,7 @@
     top: 0;
     width: 70px;
     height: 85px;
-    background: red;
+    background: #FFD700;
     border-radius: 100px 100px 0 0;
     -webkit-transform: rotate(-60deg);
     -moz-transform: rotate(-60deg);
@@ -58,7 +58,7 @@
     transform-origin: 0 100%;
 }
 #shield:after {
-    background-color: red;
+    background-color: #FFD700;
     left: 0;
     -webkit-transform: rotate(60deg);
     -moz-transform: rotate(60deg);

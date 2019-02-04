@@ -5,11 +5,28 @@ This is the index page
       <ul class = "list-unstyled">
         <% @onthemarkets.each do |otm| %>
           <li>
-            <div id = "shield-text">
-              <div id="shield">
-                <% som = otm.stocks_on_market %>
-                <% stock1 = Stock.find_by(symbol: som) %>
-                <%= stock1.stock_name %>
+            <div class = "well row">
+              <div class = "col-sm-4">
+                <div id="shield">
+                  <div id = "shield-text">
+                    <% som = otm.stocks_on_market %>
+                    <% stock1 = Stock.find_by(symbol: som) %>
+                    <%= stock1.stock_name %>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h2><%= otm.ideal_number_sold %> x <%= stock1.stock_name %> Stock</h2>
+                <div class = "col-sm-3">
+                  <p>Stock Name: <%= stock1.stock_name %></p>
+                  <p>Stock Type: <%= Being.find(Possession.find(stock1.possession_id).being_id).family %></p>
+                  <p>Stock Symbol: <%= stock1.symbol %></p>
+                </div>
+                <div class = "col-sm-5">
+                  <p>Price Per Stock:</p>
+                  <p>Minimum purchase quantity: <%= otm.least_possible %></p>
+                  <p><%= link_to 'Purchase Now', '#' %></p>
+                </div>
               </div>
             </div>
           </li>
