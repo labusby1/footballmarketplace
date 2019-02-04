@@ -24,6 +24,7 @@ class OnthemarketsController < ApplicationController
   
   def index
     @onthemarkets = Onthemarket.all
+    @user = User.find(params[:user_id])
   end
   
   private
