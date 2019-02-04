@@ -30,6 +30,6 @@ class PortfoliosController < ApplicationController
   
   private
     def portfolio_params
-      params.require(:portfolio).permit(:first_name, :last_name)
+      params.require(:portfolio).permit(:first_name, :last_name, :favorite_team)
     end
 end

@@ -8,6 +8,14 @@
     <%= f.label :last_name %>
     <%= f.text_field :last_name, class: 'form-control' %>
   </div>
+  <div class = "form-group">
+    <%= f.label :favorite_team, 'Select your favorite club.' %>
+    <% array_of_names = [] %>
+    <% for i in 0..Club.select(:name).distinct.length - 1 %>
+      <% array_of_names.append(Club.select(:name).distinct[i].name) %>
+    <% end %>
+    <%= f.select :favorite_team, array_of_names, class: 'form-control' %>
+  </div>
   <div class="form-group">
     <%= f.submit "Update Profile", class: 'btn btn-primary' %>
   </div>
