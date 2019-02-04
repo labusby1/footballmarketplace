@@ -1,2 +1,14 @@
 <h1>Home page</h1>
-<%= link_to 'Create your portfolio', new_user_portfolio_path(user_id: current_user.id) if user_signed_in? %>
+<% if user_signed_in? %>
+  <% if current_user.portfolio %>
+    <!-- If a user is logged in, they need a link to view their portfolio, and a link to build their portfolio -->
+    <%= link_to 'View Your Portfolio', user_path(current_user.id) %>
+    <br/>
+    <%= link_to 'Edit Your Portfolio Information', edit_user_portfolio_path(user_id: current_user.id) %>
+  <% else %>
+  <!-- If a user hasn't built a portfolio, they will need to enter their information -->
+    <%= link_to 'Create your portfolio', new_user_portfolio_path(user_id: current_user.id) if user_signed_in? %>
+  <% end %>
+<% else %>
+  <!-- render something if the user isn't logged in. Like sign up to the qebsite or something -->
+<% end %>

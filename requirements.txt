@@ -32,3 +32,10 @@ ONTHEMARKET
 MARTKET PAGE
 * there should be a page for showing the latest stocks for sale.
 * links to purchase the stocks
+
+
+HOME PAGE
+* when logged in there should be options to view portfolio, view market, etc.
+* link_to portfolio,
+* link_to edit_portfolio,
+* link_to marketplace

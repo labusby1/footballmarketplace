@@ -16,10 +16,16 @@ class PortfoliosController < ApplicationController
     @portfolio.net_worth = 1000
     if @portfolio.save
       flash[:success] = "Portfolio Information Updated!"
-      redirect_to user_path(params[:user_id])
+      redirect_to user_path(id: params[:user_id])
     else
       render action: :new
     end
+  end
+  
+  # GET request to /users/:user_id/portfolio/edit
+  def edit
+    @user = User.find(params[:user_id])
+    @portfolio = @user.portfolio
   end
   
   private
