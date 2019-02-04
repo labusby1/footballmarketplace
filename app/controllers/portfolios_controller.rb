@@ -28,6 +28,20 @@ class PortfoliosController < ApplicationController
     @portfolio = @user.portfolio
   end
   
+  #PUT/PATCH request for /users/:user_id/portfolio
+  def update
+    #Retreiving user profile form database
+    @user = User.find(params[:user_id])
+    @portfolio = @user.portfolio
+    #updating the user profile
+    if @portfolio.update_attributes(portfolio_params)
+      flash[:success] = "Portfolio Updated"
+      redirect_to user_path(params[:user_id])
+    else
+      render action: :edit
+    end
+  end
+  
   private
     def portfolio_params
       params.require(:portfolio).permit(:first_name, :last_name, :favorite_team)
