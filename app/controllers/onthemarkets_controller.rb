@@ -23,7 +23,7 @@ class OnthemarketsController < ApplicationController
   end
   
   def index
-    
+    @onthemarkets = Onthemarket.all
   end
   
   private

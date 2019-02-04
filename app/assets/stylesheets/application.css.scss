@@ -25,3 +25,55 @@
 .portfolio-page-name-callout{
   text-decoration: underline
 }
+
+
+/* Shield shape */
+#shield {
+    position: relative;
+    width: 140px;
+    height: 125px;
+    background-color: red;
+    border-radius: 0 0 140px 140px;
+    display: inline-block;
+}
+#shield:before, #shield:after {
+    position: absolute;
+    margin-top: 50px;
+    content:"";
+    left: 70px;
+    top: 0;
+    width: 70px;
+    height: 85px;
+    background: red;
+    border-radius: 100px 100px 0 0;
+    -webkit-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -ms-transform: rotate(-60deg);
+    -o-transform: rotate(-60deg);
+    transform: rotate(-60deg);
+    -webkit-transform-origin: 0 100%;
+    -moz-transform-origin: 0 100%;
+    -ms-transform-origin: 0 100%;
+    -o-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+#shield:after {
+    background-color: red;
+    left: 0;
+    -webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    -ms-transform: rotate(60deg);
+    -o-transform: rotate(60deg);
+    transform: rotate(60deg);
+    -webkit-transform-origin: 100% 100%;
+    -moz-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    -o-transform-origin: 100% 100%;
+    transform-origin :100% 100%;
+}
+
+#shield-text{
+    width: 140px;
+    height: 125px;
+    text-align: center;
+}

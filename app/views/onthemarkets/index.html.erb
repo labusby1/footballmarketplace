@@ -1,2 +1,21 @@
 This is the index page
-<%= Onthemarket.all.inspect %>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-md-8 col-md-offset-2">
+      <ul class = "list-unstyled">
+        <% @onthemarkets.each do |otm| %>
+          <li>
+            <div id = "shield-text">
+              <div id="shield">
+                <% som = otm.stocks_on_market %>
+                <% stock1 = Stock.find_by(symbol: som) %>
+                <%= stock1.stock_name %>
+              </div>
+            </div>
+          </li>
+          <br/>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
