@@ -17,19 +17,12 @@ class Transactor < ActiveRecord::Base
   end
   
   def transfer_stocks()
-    vendor = Portfolio.find(self.seller_id)
     customer = Portfolio.find(self.buyer_id)
     stocks_array = self.moveable
-    stocks_array.each do |s|
-      stock = Stock.find(s)
+    for i in 0..stocks_array.length - 1 do
+      stock = Stock.find(stocks_array[i])
       stock.portfolio_id = customer.id
-    end
-    
-    Transactor.transaction do 
-      stocks_array.each do |s|
-        stock = Stock.find(s)
-        raise "Transaction of stocks failed!" unless stock.save 
-      end
+      stock.save!
     end
   end
   
