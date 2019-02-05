@@ -18,6 +18,10 @@
     <%= f.number_field :ideal_number_sold, min: 1, max: 999999, class: 'form-control' %>
   </div>
   <div class = "form-group">
+    <%= f.label :price_per, 'Enter the minimum price per stock with which you would like this transaction to occur' %>
+    <%= f.number_field :price_per, :step => 0.01, class: 'form-control' %>
+  </div>
+  <div class = "form-group">
     <%= f.label :least_possible, 'Enter the minimum number of stocks which you would want to have this transaction completed' %>
     <%= f.number_field :least_possible, min: 1, max: 999999, class: 'form-control' %>
   </div>
