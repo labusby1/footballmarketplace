@@ -43,7 +43,9 @@ create the object and are brought here -->
                 <div class = "col-sm-5">
                   <p>Price Per Stock: $<%= sprintf('%.2f', otm.price_per) %></p>
                   <p>Minimum purchase quantity: <%= otm.least_possible %></p>
-                  <p><%= link_to 'Purchase Now', '#' %></p>
+                  <% if otm.portfolio_id != current_user.portfolio.id %>
+                    <p><%= link_to 'Purchase Now', '#' %></p>
+                  <% end %>
                 </div>
               </div>
             </div>
