@@ -1,32 +1,36 @@
+
+<!-- form partial for purchasing stocks from the marketplace -->
+
+<h3 class = "text-center">Stock Purchase</h3>
+<br/>
 <%= form_for @onthemarket, url: user_portfolio_onthemarkets_path do |f| %>
   <div class="form-group">
     <%= f.hidden_field :buying, :value => params[:buying] %>
   </div>
   <div class = "form-group">
-    <%= f.label :stocks_on_market, 'Choose a stock by it\'s symbol you wish to purchase' %>
+    <%= f.label :stocks_on_market, 'Stock symbol to purchase:' %>
     <!-- This will be changed in the future. This right now will display all distinct stock symbols so that
     user can select which stock they wish to buy. The problem however is that only stocks on the market shoulld
     be displayed. So I will change this when i've built out some placeholder stocks on the market.-->
     <% array_of_symbols = [] %>
-    <% for i in 0..Stock.select(:symbol).distinct.length - 1 %>
-      <% array_of_symbols.append(Stock.select(:symbol).distinct[i].symbol) %>
-    <% end %>
-    <%= f.select :stocks_on_market, array_of_symbols, class: 'form-control' %>
+    <% array_of_symbols = Onthemarket.all.map{|t| t.stocks_on_market}.uniq %>
+    
+    <%= f.select :stocks_on_market, array_of_symbols, class: 'form-control buying-form' %>
   </div>
   <div class = "form-group">
-    <%= f.label :ideal_number_sold, 'Enter your ideal transaction ammount of stocks listed above' %>
-    <%= f.number_field :ideal_number_sold, min: 1, max: 999999, class: 'form-control' %>
+    <%= f.label :ideal_number_sold, 'Ideal transaction quantity (Stk):' %>
+    <%= y = f.number_field :ideal_number_sold, min: 1, max: 999999, class: 'buying-form' %>
   </div>
   <div class = "form-group">
-    <%= f.label :price_per, 'Enter the minimum price per stock with which you would like this transaction to occur' %>
-    <%= f.number_field :price_per, :step => 0.01, class: 'form-control' %>
+    <%= f.label :price_per, 'Maximum price per stock ($/Stk):' %>
+    <%= f.number_field :price_per, :step => 0.01, min: 0.01, max: current_user.portfolio.balance, class: 'buying-form' %>
   </div>
   <div class = "form-group">
-    <%= f.label :least_possible, 'Enter the minimum number of stocks which you would want to have this transaction completed' %>
-    <%= f.number_field :least_possible, min: 1, max: 999999, class: 'form-control' %>
+    <%= f.label :least_possible, 'Minimum stock quantity for transaction:' %>
+    <%= f.number_field :least_possible, min: 1, max: 999999, class: 'buying-form' %>
   </div>
   <div class = "form-group">
-    <%= f.hidden_field :portfolio_id, :value => current_user.id %>
+    <%= f.hidden_field :portfolio_id, :value => current_user.portfolio.id %>
   </div>
   <div class="form-group">
     <%= f.submit "Propose your transaction", class: 'btn btn-primary' %>
