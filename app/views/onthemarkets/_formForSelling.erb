@@ -9,19 +9,19 @@
     <%= f.label :stocks_on_market, 'Stock available to sell:' %>
     <% array_of_symbols = [] %>
     <% array_of_symbols = Stock.where(portfolio_id: current_user.id).all.map{|t| t.symbol}.uniq %>
-    <%= f.select :stocks_on_market, array_of_symbols,class: 'form-control selling-form' %>
+    <%= f.select :stocks_on_market, array_of_symbols, required: true, class: 'form-control selling-form' %>
   </div>
   <div class = "form-group">
     <%= f.label :ideal_number_sold, 'Ideal transaction quantity (Stk):' %> 
-    <%= y = f.number_field :ideal_number_sold, min: 1, max: 999999, class: 'selling-form' %>
+    <%= y = f.number_field :ideal_number_sold, min: 1, max: 999999, required: true, class: 'selling-form' %>
   </div>
   <div class = "form-group">
     <%= f.label :price_per, 'Minimum price per stock ($/Stk):' %>
-    <%= f.number_field :price_per, :step => 0.01, min: 0.01, class: 'selling-form' %>
+    <%= f.number_field :price_per, :step => 0.01, min: 0.01, required: true, class: 'selling-form' %>
   </div>
   <div class = "form-group">
     <%= f.label :least_possible, 'Minimum sale quantity (Stk):' %>
-    <%= f.number_field :least_possible, :step => 0.01, min: 0.01, class: 'selling-form'%>
+    <%= f.number_field :least_possible, :step => 0.01, min: 0.01, required: true, class: 'selling-form'%>
   </div>
   <div class="form-group">
     <%= f.submit "Propose your transaction", class: 'btn btn-primary' %>

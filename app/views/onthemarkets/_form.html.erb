@@ -19,15 +19,16 @@
   </div>
   <div class = "form-group">
     <%= f.label :ideal_number_sold, 'Ideal transaction quantity (Stk):' %>
-    <%= y = f.number_field :ideal_number_sold, min: 1, max: 999999, class: 'buying-form' %>
+    <%= f.number_field :ideal_number_sold, min: 1, max: 999999, required: true, class: 'buying-form' %>
+    
   </div>
   <div class = "form-group">
     <%= f.label :price_per, 'Maximum price per stock ($/Stk):' %>
-    <%= f.number_field :price_per, :step => 0.01, min: 0.01, max: current_user.portfolio.balance, class: 'buying-form' %>
+    <%= f.number_field :price_per, :step => 0.01, min: 0.01, max: current_user.portfolio.balance, required: true, class: 'buying-form' %>
   </div>
   <div class = "form-group">
     <%= f.label :least_possible, 'Minimum stock quantity for transaction:' %>
-    <%= f.number_field :least_possible, min: 1, max: 999999, class: 'buying-form' %>
+    <%= f.number_field :least_possible, min: 1, max: 999999, required: true, class: 'buying-form' %>
   </div>
   <div class = "form-group">
     <%= f.hidden_field :portfolio_id, :value => current_user.portfolio.id %>
