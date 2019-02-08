@@ -16,7 +16,7 @@ class OnthemarketsController < ApplicationController
     #@onthemarket.least_possible = #JSON.parse params[:onthemarket][:least_possible].gsub('=>', ':')
     if @onthemarket.save
       flash[:success] = "Onthemarket Created!"
-      redirect_to root_path
+      redirect_to user_portfolio_onthemarkets_path
     else 
       render action: :new
     end
