@@ -123,3 +123,15 @@
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
+
+
+// error messaging
+.field_with_errors{
+  display: inline;
+}
+
+.field_with_errors .message{
+  color: red;
+  float: right;
+  padding-right: 10px;
+}

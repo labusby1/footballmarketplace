@@ -5,5 +5,8 @@ class Onthemarket < ActiveRecord::Base
   
   #Validations
   validates :stocks_on_market, :ideal_number_sold, :price_per, :least_possible, presence: true
+  validates :ideal_number_sold, :least_possible, :numericality => {greater_than: 0, message: 'Must be positive'}
+  validates :price_per, :numericality => {greater_than_or_equal_to: 0.01}
+  validates :least_possible, :numericality => {less_than_or_equal_to: :ideal_number_sold, message: 'must be less than or equal to ideal transaction quantity'}
 
 end
