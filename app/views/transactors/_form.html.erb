@@ -1,15 +1,28 @@
-<%= form_for @transactor, url: user_path(id: current_user.id), validate: true do |f| %>
-  <!-- create an instantiation of the onthemarket object the user is about to buy -->
-  <% @otmobj = Onthemarket.find(params[:onthemarket]) %>
-  <div class="form-group">
-    <%= f.hidden_field :buyer_id, :value => current_user.id %>
-  </div>
-  <div class="form-group">
-    <%= f.hidden_field :seller_id, :value => @otmobj.portfolio_id %>
-  </div>
-  <div>
-    <%= f.label :transaction_cost, 'Ideal transaction quantity (Stk):' %> 
-    <input type="number" min="<%= @otmobj.least_possible %>" max="<%= @otmobj.ideal_number_sold %>" step="1" value="<%= @otmobj.ideal_number_sold %>" />
+<div id = "new-transactor-form">
+  <%= form_for @transactor, url: user_path(id: current_user.id), validate: true do |f| %>
+    <!-- create an instantiation of the onthemarket object the user is about to buy -->
+    <% @otmobj = Onthemarket.find(params[:onthemarket]) %>
+    <div class="form-group">
+      <%= f.hidden_field :buyer_id, :value => current_user.id %>
+    </div>
+    <div class="form-group">
+      <%= f.hidden_field :seller_id, :value => @otmobj.portfolio_id %>
+    </div>
+    <!-- a content_tag i'm using to transfer data from the otmobj to javascript -->
+    <%= content_tag :div, id: "price-per-transactor-form", data: {price_per: @otmobj.price_per} do %><% end %>
+    <div>
+      <%= f.label :transaction_cost, 'Ideal transaction quantity (Stk):' %> 
+      <input id= "transaction-quantity" type="number" min="<%= @otmobj.least_possible %>" max="<%= @otmobj.ideal_number_sold %>" step="1" value="<%= @otmobj.ideal_number_sold %>" />
+    </div>
     
-  </div>
-<% end %>
+    
+    
+    <!-- a button which when clicked, javascript calculates the transaction cost for the user to see -->
+    <div>
+      <button id = "calculate-transaction">Calculate transcation cost</button>
+    </div>
+    <div class="form-group", id= 'form-submit-btn'>
+      <%= f.submit "Confirm Purchase (There's no going back!)", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
