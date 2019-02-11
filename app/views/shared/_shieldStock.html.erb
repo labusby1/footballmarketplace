@@ -1,0 +1,43 @@
+<!-- Shield Stock items, when calling to render this, The programmer can specify the objects to draw for
+For example passing in Onthemarket.find(1) as one object-->
+<div class = "well row">
+  <div class = "col-sm-4 text-center">
+    <!-- Shield logo with stock information inside -->
+    <div id="shield">
+      <div id = "shield-text">
+        <!-- the symbol of the stocks being sold (som) is used to search database for these stocks -->
+        <% som = otm1.stocks_on_market %>
+        <br/>
+        <% stock = Stock.find_by(symbol: som) %>
+        <%= stock.stock_name %>
+        <% if stock.being_id == 2 %>
+          <!-- Iterating through each league a club can be part of -->
+          <% for i in 0..Club.find_by(name: stock.stock_name).leagues.length - 1 %>
+            <%= Club.find_by(name: stock.stock_name).leagues[i].name %>
+          <% end %>
+        <% else %>
+          <!-- Here will be how i access the leagues if the stock isn't a club-->
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!-- main information describing the onthemarket object which could be bought -->
+    <h2><%= otm1.ideal_number_sold %> x <%= stock.stock_name %> Stock</h2>
+    <div class = "col-sm-3">
+      <p>Stock Name: <%= stock.stock_name %></p>
+      <p>Stock Type: <%= Being.find(stock.being_id).family %></p>
+      <p>Stock Symbol: <%= stock.symbol %></p>
+    </div>
+    <div class = "col-sm-5">
+      <p>Price Per Stock: $<%= sprintf('%.2f', otm1.price_per) %></p>
+      <p>Minimum purchase quantity: <%= otm1.least_possible %></p>
+      <!-- A 'Purchase Now' link is created if the current user does not own the onthemarket object and the current page is the 
+      marketplace page -->
+      <% if otm1.portfolio_id != current_user.portfolio.id && request.path_info == user_portfolio_onthemarkets_path(user_id: current_user.id) %>
+        <p><%= link_to 'Purchase Now', new_user_transactor_path(user_id: current_user.id, onthemarket: otm1.id) %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
+<br/>

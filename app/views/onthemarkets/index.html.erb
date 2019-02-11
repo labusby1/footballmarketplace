@@ -12,45 +12,8 @@ create the object and are brought here -->
         is created. -->
         <% @onthemarkets.each do |otm| %>
           <li>
-            <div class = "well row">
-              <div class = "col-sm-4 text-center">
-                <!-- Shield logo with stock information inside -->
-                <div id="shield">
-                  <div id = "shield-text">
-                    <% som = otm.stocks_on_market %>
-                    <br/>
-                    <% stock = Stock.find_by(symbol: som) %>
-                    <%= stock.stock_name %>
-                    <% if stock.being_id == 2 %>
-                      <!-- Iterating through each league a club can be part of -->
-                      <% for i in 0..Club.find_by(name: stock.stock_name).leagues.length - 1 %>
-                        <%= Club.find_by(name: stock.stock_name).leagues[i].name %>
-                      <% end %>
-                    <% else %>
-                      <!-- Here will be how i access the leagues if the stock isn't a club-->
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <!-- main information describing the onthemarket object which could be bought -->
-                <h2><%= otm.ideal_number_sold %> x <%= stock.stock_name %> Stock</h2>
-                <div class = "col-sm-3">
-                  <p>Stock Name: <%= stock.stock_name %></p>
-                  <p>Stock Type: <%= Being.find(stock.being_id).family %></p>
-                  <p>Stock Symbol: <%= stock.symbol %></p>
-                </div>
-                <div class = "col-sm-5">
-                  <p>Price Per Stock: $<%= sprintf('%.2f', otm.price_per) %></p>
-                  <p>Minimum purchase quantity: <%= otm.least_possible %></p>
-                  <% if otm.portfolio_id != current_user.portfolio.id %>
-                    <p><%= link_to 'Purchase Now', '#' %></p>
-                  <% end %>
-                </div>
-              </div>
-            </div>
+            <%= render '/shared/shieldStock', :otm1 => otm %>
           </li>
-          <br/>
         <% end %>
       </ul>
     </div>

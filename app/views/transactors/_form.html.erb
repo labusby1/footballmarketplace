@@ -1,0 +1,15 @@
+<%= form_for @transactor, url: user_path(id: current_user.id), validate: true do |f| %>
+  <!-- create an instantiation of the onthemarket object the user is about to buy -->
+  <% @otmobj = Onthemarket.find(params[:onthemarket]) %>
+  <div class="form-group">
+    <%= f.hidden_field :buyer_id, :value => current_user.id %>
+  </div>
+  <div class="form-group">
+    <%= f.hidden_field :seller_id, :value => @otmobj.portfolio_id %>
+  </div>
+  <div>
+    <%= f.label :transaction_cost, 'Ideal transaction quantity (Stk):' %> 
+    <input type="number" min="<%= @otmobj.least_possible %>" max="<%= @otmobj.ideal_number_sold %>" step="1" value="<%= @otmobj.ideal_number_sold %>" />
+    
+  </div>
+<% end %>
