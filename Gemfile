@@ -48,6 +48,8 @@ gem 'font-awesome-sass'
 # Use devise for user authentication
 gem 'devise'
 
+#Use jquery library for page manipulations
+gem 'jquery-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
