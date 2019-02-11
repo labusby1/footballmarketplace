@@ -17,7 +17,9 @@
           <%= link_to "Purchase stocks on the marketpalce", new_user_portfolio_onthemarket_path(buying: true, user_id: params[:id]), class: 'btn btn-success btn-lg btn-block' %>
           <br/>
           <br/>
-          <%= link_to "Sell stocks from your portfolio", new_user_portfolio_onthemarket_path(buying: false, user_id: params[:id]), class: 'btn btn-success btn-lg' %></h4>
+          <% if current_user.portfolio.stocks.length != 0 %>
+            <%= link_to "Sell stocks from your portfolio", new_user_portfolio_onthemarket_path(buying: false, user_id: params[:id]), class: 'btn btn-success btn-lg' %></h4>
+          <% end %>
           <h4 class = "text-center well"> And here will be the stocks drop down menu</h4>
         </div>
       </div>
