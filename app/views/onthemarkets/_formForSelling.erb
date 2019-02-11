@@ -26,18 +26,18 @@
   </div>
 </div>
 
-<%= form_for @onthemarket, url: user_portfolio_onthemarkets_path do |f| %>
+<%= form_for @onthemarket, url: user_portfolio_onthemarkets_path, validate: true do |f| %>
   <div class="form-group">
     <%= f.hidden_field :buying, :value => params[:buying] %>
   </div>
-  <div class = "form-group">
+  <div class = "form-group field_with_errors">
     <%= f.label :stocks_on_market, 'Stock available to sell:' %>
     
     <%= f.select :stocks_on_market, array_of_symbols, required: true, class: 'form-control selling-form' %>
   </div>
-  <div class = "form-group">
+  <div class = "form-group field_with_errors">
     <%= f.label :ideal_number_sold, 'Ideal transaction quantity (Stk):' %> 
-    <%= y = f.number_field :ideal_number_sold, min: 1, max: 999999, required: true, class: 'selling-form' %>
+    <%= f.number_field :ideal_number_sold, min: 1, max: 999999, validate: true, class: 'selling-form' %>
   </div>
   <div class = "form-group">
     <%= f.label :price_per, 'Minimum price per stock ($/Stk):' %>

@@ -4,5 +4,6 @@ class Onthemarket < ActiveRecord::Base
   #serialize :stocks_on_market, Array
   
   #Validations
-  
+  validates :stocks_on_market, :ideal_number_sold, :price_per, :least_possible, presence: true
+
 end
