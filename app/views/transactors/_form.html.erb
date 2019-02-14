@@ -1,27 +1,33 @@
-<div id = "new-transactor-form">
-  <%= form_for @transactor, url: user_path(id: current_user.id), validate: true do |f| %>
-    <!-- create an instantiation of the onthemarket object the user is about to buy -->
-    <% @otmobj = Onthemarket.find(params[:onthemarket]) %>
-    <div class="form-group">
-      <%= f.hidden_field :buyer_id, :value => current_user.id %>
-    </div>
-    <div class="form-group">
-      <%= f.hidden_field :seller_id, :value => @otmobj.portfolio_id %>
-    </div>
-    <!-- a content_tag i'm using to transfer data from the otmobj to javascript -->
-    <%= content_tag :div, id: "price-per-transactor-form", data: {price_per: @otmobj.price_per} do %><% end %>
-    <div>
-      <%= f.label :transaction_cost, 'Ideal transaction quantity (Stk):' %> 
-      <input id= "transaction-quantity" type="number" min="<%= @otmobj.least_possible %>" max="<%= @otmobj.ideal_number_sold %>" step="1" value="<%= @otmobj.ideal_number_sold %>" />
-    </div>
-    
-    
-    
-    <!-- a button which when clicked, javascript calculates the transaction cost for the user to see -->
-    <div id = "calculate-transaction" >
-    </div>
-    <div class="form-group", id= 'form-submit-btn'>
-      <%= f.submit "Confirm Purchase (There's no going back!)", class: 'btn btn-primary' %>
-    </div>
+
+<%= form_for @transactor, url: user_transactors_path(id: current_user.id), validate: true, html: {id: 'new-transactor-form'} do |f| %>
+  <!-- create an instantiation of the onthemarket object the user is about to buy -->
+  <% @otmobj = Onthemarket.find(params[:onthemarket]) %>
+  <div class="form-group">
+    <%= f.hidden_field :buyer_id, :value => current_user.id %>
+  </div>
+  <div class="form-group">
+    <%= f.hidden_field :seller_id, :value => @otmobj.portfolio_id %>
+  </div>
+  
+  
+  <!-- a content_tag i'm using to transfer data from the otmobj to javascript -->
+  <%= content_tag :div, id: "price-per-transactor-form", data: {price_per: @otmobj.price_per} do %><% end %>
+  <p>Enter an ideal transaction quantity</p><input id= "transaction-quantity" type="number" min="<%= @otmobj.least_possible %>" max="<%= @otmobj.ideal_number_sold %>" step="1" value="<%= @otmobj.ideal_number_sold %>" />
+  <div class = 'form-group', id = "calculate-transaction" >
+  </div>
+  
+  <!-- An array of stock_id's become the moveable object and indicate exactly which stocks are transfered in transaction -->
+  <% @array_of_ids = Stock.where(symbol: @otmobj.stocks_on_market, portfolio_id: @otmobj.portfolio_id).ids %>
+  <%= content_tag :div, id: "array_of_idsJS", data: {array: @array_of_ids} do %><% end %>
+  
+  
+  <div class = 'form-group',id= "moveable-stocks">
+  </div>
+  <% for i in 0..@array_of_ids.length - 1 %>
+    <input input_html: { multiple: true } type="hidden" name="transactor[moveable][]" value = "<%= @array_of_ids[i] %>" >
   <% end %>
-</div>
+  
+  <div class="form-group", id= 'form-submit-btn'>
+    <%= f.submit "Confirm Purchase (There's no going back!)", class: 'btn btn-primary' %>
+  </div>
+<% end %>
