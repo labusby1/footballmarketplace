@@ -4,7 +4,10 @@
     <title>Football Marketplace</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
+    <!-- Meta tag for page specific javascript (psj) -->
+    <%= tag :meta, name: :psj, id: 'psj', action: action_name, controller: controller_name %>
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'rails.validations' %>
