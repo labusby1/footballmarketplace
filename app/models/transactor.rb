@@ -23,9 +23,10 @@ class Transactor < ActiveRecord::Base
     customer = Portfolio.find(self.buyer_id)
     #Here, we take a string from the transactor object and convert it to an array
     stocks_array = self.stocks_to_move.split(',')
+    stocks_array = stocks_array.take(self.moveable)
    
     for i in 0..stocks_array.length - 1 do
-      stock = Stock.find(stocks_array[i].tr('[]',''))
+      stock = Stock.find(stocks_array[i].tr('[]','').to_i)
       #Stock is transfered to new owner
       stock.portfolio_id = customer.id
       stock.save!

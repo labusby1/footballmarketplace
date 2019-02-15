@@ -17,6 +17,6 @@ class TransactorsController < ApplicationController
   end
   private
     def transactor_params
-      params.require(:transactor).permit(:buyer_id, :seller_id, :transaction_cost, :stocks_to_move)
+      params.require(:transactor).permit(:buyer_id, :seller_id, :transaction_cost, :stocks_to_move, :moveable)
     end
 end

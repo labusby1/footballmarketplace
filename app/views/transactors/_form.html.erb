@@ -16,13 +16,12 @@
   <div class = 'form-group', id = "calculate-transaction" >
   </div>
   
+  
   <!-- A string of an array of stock_id's become the stocks_to_move object and indicate exactly which stocks are transfered in transaction -->
-  <% @array_of_ids = Stock.where(symbol: @otmobj.stocks_on_market, portfolio_id: @otmobj.portfolio_id).ids %>
+  <% @array_of_ids = Stock.where(symbol: @otmobj.stocks_on_market, portfolio_id: @otmobj.portfolio_id).ids%>
   <% require 'json' %>
   <% js_obj = @array_of_ids.to_json %>
-  <div class = 'form-group'>
-    <%= f.hidden_field :stocks_to_move, :value => js_obj %>
-  </div>
+  <%= f.hidden_field :stocks_to_move, :value => js_obj %>
   
   <div class="form-group", id= 'form-submit-btn'>
     <%= f.submit "Confirm Purchase (There's no going back!)", class: 'btn btn-primary' %>
