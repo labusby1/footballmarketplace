@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_04_194714) do
+ActiveRecord::Schema.define(version: 2019_02_14_194134) do
 
   create_table "beings", force: :cascade do |t|
     t.string "family"
@@ -116,13 +116,25 @@ ActiveRecord::Schema.define(version: 2019_02_04_194714) do
     t.integer "being_id"
   end
 
+  create_table "stocks_transactors", id: false, force: :cascade do |t|
+    t.integer "transactor_id"
+    t.integer "stock_id"
+    t.index ["stock_id"], name: "index_stocks_transactors_on_stock_id"
+    t.index ["transactor_id"], name: "index_stocks_transactors_on_transactor_id"
+  end
+
+  create_table "stocksmoveables", force: :cascade do |t|
+    t.integer "stock_id"
+  end
+
   create_table "transactors", force: :cascade do |t|
     t.integer "buyer_id"
     t.integer "seller_id"
     t.float "transaction_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "moveable"
+    t.integer "stockmovable"
+    t.string "stocks_to_move"
   end
 
   create_table "users", force: :cascade do |t|

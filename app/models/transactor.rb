@@ -2,7 +2,7 @@ class Transactor < ActiveRecord::Base
   has_one :buyer
   has_one :seller
   has_many :stocks
-  serialize :moveable, Array
+  has_and_belongs_to_many :stocks
   
   #Method to transfer funds from the buyer portfolio to the seller portfolio
   def transfer_funds()
@@ -21,9 +21,11 @@ class Transactor < ActiveRecord::Base
   #changes the portfolio id on the stocks that are included in transaction
   def transfer_stocks()
     customer = Portfolio.find(self.buyer_id)
-    stocks_array = self.moveable
+    #Here, we take a string from the transactor object and convert it to an array
+    stocks_array = self.stocks_to_move.split(',').map(&:to_i)
     for i in 0..stocks_array.length - 1 do
       stock = Stock.find(stocks_array[i])
+      #Stock is transfered to new owner
       stock.portfolio_id = customer.id
       stock.save!
     end

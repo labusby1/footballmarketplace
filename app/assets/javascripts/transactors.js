@@ -37,21 +37,6 @@ $(document).on('turbolinks:load', function(){
     costOutputBox.append($('<input value="'+outputted+'" type="hidden" name="transactor[transaction_cost]", id="transactor_transaction_cost">'));
     //theForm.append($('<input type="hidden" name="transactor[transaction_cost]">').val(outputted) );
     
-    //Here I am inserting ruby code for each stockQuantity integer building the moveable array 
-    var moveableOutputBox = $('#moveable-stocks');
-    var array_of_ids = $('#array_of_idsJS').get(0).dataset.array;
-    
-    
-//     {
-// "name":"John",
-// "age":30,
-// "cars":[ "Ford", "BMW", "Fiat" ]
-// }
-    // for (var i=1; i < array_of_ids.length - 1; i++){
-    //   moveableOutputBox.append($('<input type="hidden" name="transactor[moveable][]['+array_of_ids.get(i)+']>'));
-    // };
-    
-    //Continue with form submition
     theForm.eq(0).submit();
   });
   //Submit form to rails app.

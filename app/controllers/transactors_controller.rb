@@ -6,9 +6,10 @@ class TransactorsController < ApplicationController
   def create 
     # @buyer = Buyer.create(portfolio_id: User.find(params[:user_id]).portfolio.id, purchase_price: 1)
     @transactor = Transactor.new(transactor_params)
-    # @transactor.moveable = @array_of_ids
     if @transactor.save
       flash[:success] = "Transactor Created!"
+      @transactor.transfer_funds()
+      @transactor.transfer_stocks()
       redirect_to user_path(id: params[:user_id])
     else
       render root_path
@@ -16,6 +17,6 @@ class TransactorsController < ApplicationController
   end
   private
     def transactor_params
-      params.require(:transactor).permit(:buyer_id, :seller_id, :transaction_cost, :moveable)
+      params.require(:transactor).permit(:buyer_id, :seller_id, :transaction_cost, :stocks_to_move)
     end
 end
