@@ -123,18 +123,14 @@ ActiveRecord::Schema.define(version: 2019_02_14_194134) do
     t.index ["transactor_id"], name: "index_stocks_transactors_on_transactor_id"
   end
 
-  create_table "stocksmoveables", force: :cascade do |t|
-    t.integer "stock_id"
-  end
-
   create_table "transactors", force: :cascade do |t|
     t.integer "buyer_id"
     t.integer "seller_id"
     t.float "transaction_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "stockmovable"
-    t.string "stocks_to_move"
+    t.text "moveable"
+    t.text "stocks_to_move"
   end
 
   create_table "users", force: :cascade do |t|
