@@ -11,12 +11,13 @@ class TransactorsController < ApplicationController
       @transactor.transfer_funds()
       @transactor.transfer_stocks()
       redirect_to user_path(id: params[:user_id])
+      Onthemarket.find(@transactor.otm_id).delete
     else
       render root_path
     end
   end
   private
     def transactor_params
-      params.require(:transactor).permit(:buyer_id, :seller_id, :transaction_cost, :stocks_to_move, :moveable)
+      params.require(:transactor).permit(:buyer_id, :seller_id, :transaction_cost, :stocks_to_move, :moveable, :otm_id)
     end
 end
