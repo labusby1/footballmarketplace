@@ -30,6 +30,6 @@ class OnthemarketsController < ApplicationController
   private
   #white list the onthemarket parameters
     def onthemarket_params
-      params.require(:onthemarket).permit(:buying, :portfolio_id, :stocks_on_market, :least_possible, :ideal_number_sold, :price_per)
+      params.require(:onthemarket).permit(:buying, :portfolio_id, :stocks_on_market, :least_possible, :ideal_number_sold, :price_per, :max_number_sold)
     end
 end

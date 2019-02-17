@@ -1,23 +1,38 @@
 <!-- The form for a new onthemarket object where the user is selling stocks
 / what a user creates inorder to perform a transaction -->
 
+
+<!-- Here is a hover over dropdown menu which takes the available stocks the user has to sell and shows important information such as the stock name, stock symbol and 
+the number of available stocks to choose from -->
 <div class = "dropdown text-center", style= "width:100%">
   <button class = "dropdown-btn text-center", style= "width:100%">Your Available Stocks</button>
   <div class="dropdown-content", style= "width:100%">
+    <!-- A table will hold the information of stocks availble to the user. -->
     <table style="width:100%">
+      <!-- first row holds headers for the table. -->
       <tr>
         <th>  Stock Name</th>
         <th class = "text-center">Stock Symbol</th> 
         <th class = "text-right">Available to sell  </th>
       </tr>
+      <!-- an array is created and filled with the stocks available to the user to sell, the array will only contain the unique values of the stocks because we don't want
+      to see x number of the same information, just how many stocks of those 'qualities' the user has. -->
       <% array_of_symbols = [] %>
       <% array_of_symbols = Stock.where(portfolio_id: current_user.id).all.map{|t| t.symbol}.uniq %>
       <% array_of_symbols.each do |stk| %>
+      <!-- for each of the unique stock information sets, a new row in the table is created -->
         <tr>
           <% stkobjs = Stock.where(symbol: stk) %>
+          <!-- A content tag is created for the onthemarket.js file to access which contains the number of available stocks for each particular stock symbol which
+          was returned inside this dropdown menu table.-->
+          <%= idplaceholderstring = 'stock-info-'+stk %> 
+          <%= content_tag :div, id: idplaceholderstring, data: {stock_info_count: stkobjs.where(portfolio_id: current_user.portfolio.id, active: true).count} do %><% end %>
+        
+          <!-- The table's row is filled with information. -->
           <th>  <%= stkobjs.first.stock_name %></th>
           <th class = "text-center"><%= stk %></th> 
-          <th class = "text-right"><%= stkobjs.where(portfolio_id: current_user.portfolio.id).count %></th>
+          <th class = "text-right"><%= stkobjs.where(portfolio_id: current_user.portfolio.id, active: true).count %></th>
+        
         </tr>
       <% end %>
      
@@ -26,17 +41,20 @@
   </div>
 </div>
 
-<%= form_for @onthemarket, url: user_portfolio_onthemarkets_path, validate: true do |f| %>
+<%= form_for @onthemarket, url: user_portfolio_onthemarkets_path, validate: true, html: {id: 'new-onthemarket-form'} do |f| %>
   <div class="form-group">
     <%= f.hidden_field :buying, :value => params[:buying] %>
   </div>
   <div class = "form-group ">
     <%= f.label :stocks_on_market, 'Stock available to sell:' %>
-    <%= f.select :stocks_on_market, array_of_symbols, required: true, class: 'form-control selling-form' %>
+    <%= f.select :stocks_on_market, array_of_symbols, required: true, class: 'form-control selling-form', id:'stock-symbol', include_blank: 'Select a stock...' %>
   </div>
-  <div class = "form-group ">
-    <%= f.label :ideal_number_sold, 'Ideal transaction quantity (Stk):' %> 
-    <%= f.number_field :ideal_number_sold, min: 1, max: 999999, class: 'selling-form' %>
+  <!-- A div box where the onthemarket.js file will insert max_number_sold field tag. -->
+  <div class ="form-group" id='max-number-sold-output'></div>
+  
+  <!-- A div box where the onthemarket.js file will insert ideal_number_sold field tag. -->
+  <div class = "form-group" id= "ideal-number-box">
+    
   </div>
   <div class = "form-group">
     <%= f.label :price_per, 'Minimum price per stock ($/Stk):' %>
@@ -46,7 +64,7 @@
     <%= f.label :least_possible, 'Minimum sale quantity (Stk):' %>
     <%= f.number_field :least_possible, :step => 0.01, min: 0.01, required: true, class: 'selling-form'%>
   </div>
-  <div class="form-group">
+  <div class="form-group" id = "form-submit-btn">
     <%= f.submit "Propose your transaction", class: 'btn btn-primary' %>
   </div>
 <% end %>

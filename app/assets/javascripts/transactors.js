@@ -26,7 +26,7 @@ $(document).on('turbolinks:load', function(){
     
     //When user clicks submit,
     submitBtn.click(function(event){
-      //we prevent deault behaviour, pausing the form.
+      //We prevent deault behaviour, pausing the form.
       event.preventDefault();
       submitBtn.val("Processing").prop('disabled', true);
       
@@ -38,7 +38,7 @@ $(document).on('turbolinks:load', function(){
       // Also injecting the stockQuantity value into the transactor form as moveable
       costOutputBox.append($('<input value="'+stockQuantity+'" type="hidden" name="transactor[moveable]", id="transactor_moveable">'));
       
-      //continues with form submittion
+      //Continues with form submittion
       theForm.eq(0).submit();
     });
     //Submit form to rails app.
@@ -46,6 +46,4 @@ $(document).on('turbolinks:load', function(){
   else {
     return
   }
-  
-  
 });

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_15_193010) do
+ActiveRecord::Schema.define(version: 2019_02_17_160639) do
 
   create_table "beings", force: :cascade do |t|
     t.string "family"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2019_02_15_193010) do
     t.integer "ideal_number_sold"
     t.integer "least_possible"
     t.float "price_per"
+    t.integer "max_number_sold"
   end
 
   create_table "players", force: :cascade do |t|
