@@ -23,8 +23,8 @@ $(document).on('turbolinks:load', function(){
       
       //Now i want to find the html div tag whos name is 'stock-info-<%= stk %>' (divTagString) and take the data value of
       //data-stockNumber (divTagValue) and plug it into the output box 'input' tag I have below.
-      var divTagString = '#stock-info-'+stockSymbolValue
-      if (stockSymbolValue){
+      var divTagString = '#stock-info-'+stockSymbolValue;
+      if (divTagString != '#stock-info-'){
         var divTagValue = $(divTagString).get(0).dataset.stockInfoCount;
         outputBox.append('<h4>Select an ideal number of stocks to sell</h4>');
         
@@ -44,10 +44,10 @@ $(document).on('turbolinks:load', function(){
       //(ie. form submition fails).
       var maxQuantityString = $('#onthemarket_stocks_on_market').val(); //Give me MANU
       var divTagString = '#stock-info-'+maxQuantityString;
-      var maxTagValue = $(divTagString).get(0).dataset.stockInfoCount;
+      var maxTagValue = parseInt($(divTagString).get(0).dataset.stockInfoCount);
       
       // Client side validation if statement
-      var idealTagValue = $('#ideal-tag-value').val();
+      var idealTagValue = parseInt($('#ideal-tag-value').val());
       if (idealTagValue <= maxTagValue){
         
         //Output box to append the input value to.
