@@ -15,6 +15,14 @@ class OnthemarketsController < ApplicationController
     #@onthemarket.stocks_on_market = #JSON.parse params[:onthemarket][:stocks_on_market].gsub('=>', ':')
     #@onthemarket.least_possible = #JSON.parse params[:onthemarket][:least_possible].gsub('=>', ':')
     if @onthemarket.save
+      
+      #Must switch the stocks active trait that make up the onthemarket object to false
+      stk_arr = Stock.where(portfolio_id: current_user.portfolio.id, active: true, symbol: @onthemarket.stocks_on_market).take(@onthemarket.ideal_number_sold)
+      for i in 0..stk_arr.length-1 do
+        stk_arr[i].active = false
+        stk_arr[i].save
+      end
+      
       flash[:success] = "Onthemarket Created!"
       redirect_to user_portfolio_onthemarkets_path
     else 

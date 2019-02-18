@@ -11,7 +11,17 @@ class TransactorsController < ApplicationController
       flash[:success] = "Transactor Created!"
       @transactor.transfer_funds()
       @transactor.transfer_stocks()
-      Onthemarket.find(@transactor.otm_id).delete
+      @onthemarket = Onthemarket.find(@transactor.otm_id)
+      
+      # If an otm is purchased but the number of stocks is less than ideal. A new otm must be made where the new ideal_numer_sold is the remaining number of stocks
+      if @onthemarket.ideal_number_sold > @transactor.moveable
+        Onthemarket.update(@onthemarket.id, :ideal_number_sold => @onthemarket.ideal_number_sold - @transactor.moveable, :least_possible => 1, :max_number_sold => @transactor.moveable)
+        @onthemarket.save
+        
+      else
+        @onthemarket.delete
+        @onthemarket.save
+      end
       #Redirect the user to their portfolio
       redirect_to user_path(id: params[:user_id])
     else

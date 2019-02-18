@@ -29,6 +29,7 @@ class Transactor < ActiveRecord::Base
       stock = Stock.find(stocks_array[i].tr('[]','').to_i)
       #Stock is transfered to new owner
       stock.portfolio_id = customer.id
+      stock.active = true
       stock.save!
     end
   end

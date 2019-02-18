@@ -14,6 +14,8 @@ $(document).on('turbolinks:load', function(){
       
       // create an area for input to be inserted and clear it
       var outputBox = $('#ideal-number-box');
+      outputBox.children("input").remove();
+      outputBox.children("h4").remove();
       outputBox.innerHTML = '';
       // We take the value of the dropdown menu item selected which will be used below to search for a div tag in formForSelling partial to use the data value of how many
       //stocks are available to sell.
@@ -22,11 +24,13 @@ $(document).on('turbolinks:load', function(){
       //Now i want to find the html div tag whos name is 'stock-info-<%= stk %>' (divTagString) and take the data value of
       //data-stockNumber (divTagValue) and plug it into the output box 'input' tag I have below.
       var divTagString = '#stock-info-'+stockSymbolValue
-      var divTagValue = $(divTagString).get(0).dataset.stockInfoCount;
-      outputBox.append('<h4>Select an indeal number of stocks to sell</h4>');
-      
-      // divTagVaklue is now the maximum stocks availble to the user to sell. So that value is inserted into the input tag as the max paramter.
-      outputBox.append('<input type="number" name="onthemarket[ideal_number_sold]" id="ideal-tag-value" min="1" max='+divTagValue+'>');
+      if (stockSymbolValue){
+        var divTagValue = $(divTagString).get(0).dataset.stockInfoCount;
+        outputBox.append('<h4>Select an ideal number of stocks to sell</h4>');
+        
+        // divTagVaklue is now the maximum stocks availble to the user to sell. So that value is inserted into the input tag as the max paramter.
+        outputBox.append('<input type="number" name="onthemarket[ideal_number_sold]" id="ideal-tag-value" min="1" max='+divTagValue+'>');
+      };
     });
     
     submitBtn.click(function(event){
