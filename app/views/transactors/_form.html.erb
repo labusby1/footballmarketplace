@@ -12,19 +12,34 @@
     <%= f.hidden_field :otm_id, :value => params[:onthemarket] %>
   </div>
   
+  <div class = "row">
+    <div class = "col-md-6">
   
-  <!-- a content_tag i'm using to transfer data from the otmobj to javascript -->
-  <%= content_tag :div, id: "price-per-transactor-form", data: {price_per: @otmobj.price_per} do %><% end %>
-  <p>Enter an ideal transaction quantity</p><input id= "transaction-quantity" type="number" min="<%= @otmobj.least_possible %>" max="<%= @otmobj.ideal_number_sold %>" step="1" value="<%= @otmobj.ideal_number_sold %>" />
-  <!-- Injected html code goes here -->
-  <div class = 'form-group', id = "calculate-transaction" ></div>
+    <!-- a content_tag i'm using to transfer data from the otmobj to javascript -->
+    <%= content_tag :div, id: "price-per-transactor-form", data: {price_per: @otmobj.price_per} do %><% end %>
+    <p class= 'inline-textbox'>Enter an ideal transaction quantity:</p><input id= "transaction-quantity" type="number" min="<%= @otmobj.least_possible %>" max="<%= @otmobj.ideal_number_sold %>" step="1" value="<%= @otmobj.ideal_number_sold %>" />
+    <!-- Injected html code goes here -->
+    <div class = 'form-group', id = "calculate-transaction" ></div>
+    
+    
+    <!-- A string of an array of stock_id's become the stocks_to_move object and indicate exactly which stocks are transfered in transaction -->
+    <% @array_of_ids = Stock.where(symbol: @otmobj.stocks_on_market, portfolio_id: @otmobj.portfolio_id).ids%>
+    <% require 'json' %>
+    <% js_obj = @array_of_ids.to_json %>
+    <%= f.hidden_field :stocks_to_move, :value => js_obj %>
   
-  
-  <!-- A string of an array of stock_id's become the stocks_to_move object and indicate exactly which stocks are transfered in transaction -->
-  <% @array_of_ids = Stock.where(symbol: @otmobj.stocks_on_market, portfolio_id: @otmobj.portfolio_id).ids%>
-  <% require 'json' %>
-  <% js_obj = @array_of_ids.to_json %>
-  <%= f.hidden_field :stocks_to_move, :value => js_obj %>
+    </div>
+    <div class = "col-md-6">
+      <h4 class= "text-center">Transaction</h4>
+      <table>
+        <tr>
+          <th>Current Balance </th>
+          <th class = 'table-text-right'><%= current_user.portfolio.balance %></th>
+        </tr>
+        
+      </table>
+    </div>
+  </div>
   
   <div class="form-group", id= 'form-submit-btn'>
     <%= f.submit "Confirm Purchase (There's no going back!)", class: 'btn btn-primary' %>

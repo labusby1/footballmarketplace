@@ -124,6 +124,12 @@
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 
+#transaction-quantity, .inline-textbox{
+  display: inline;
+}
+.table-text-right{
+  text-align: right;
+}
 
 // error messaging
 .field_with_errors{
