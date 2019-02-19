@@ -16,7 +16,7 @@
     <div class = "col-md-6">
   
     <!-- a content_tag i'm using to transfer data from the otmobj to javascript -->
-    <%= content_tag :div, id: "price-per-transactor-form", data: {price_per: @otmobj.price_per} do %><% end %>
+    <%= content_tag :div, id: "price-per-transactor-form", data: {price_per: @otmobj.price_per, ideal_number_sold: @otmobj.ideal_number_sold, current_balance: current_user.portfolio.balance} do %><% end %>
     <p class= 'inline-textbox'>Enter an ideal transaction quantity:</p><input id= "transaction-quantity" type="number" min="<%= @otmobj.least_possible %>" max="<%= @otmobj.ideal_number_sold %>" step="1" value="<%= @otmobj.ideal_number_sold %>" />
     <!-- Injected html code goes here -->
     <div class = 'form-group', id = "calculate-transaction" ></div>
@@ -29,14 +29,43 @@
     <%= f.hidden_field :stocks_to_move, :value => js_obj %>
   
     </div>
-    <div class = "col-md-6">
+    <div class = "col-md-5 offset-md-1">
       <h4 class= "text-center">Transaction</h4>
-      <table>
-        <tr>
-          <th>Current Balance </th>
-          <th class = 'table-text-right'><%= current_user.portfolio.balance %></th>
-        </tr>
+      <table style= 'width:100%'>
         
+        <tr>
+          <td>Cost Per Stock:</td>
+          <td class = 'text-align-right'><%= @otmobj.price_per %></td>
+        </tr>
+        <tr>
+          <td>Stocks to be bought:</td>
+          <td id = 'stocks-to-be-bought' class = 'text-align-right'></td>
+           <!-- js is inserting the stocks to be bout value into this div -->
+        </tr>
+        <tr>
+          <td>Transaction Cost:</td>
+          <td id='costbox' class = 'text-align-right'></td>
+        </tr>
+        <tr>
+          <td>---------------------------------------------------</td>
+          <td>------------</td>
+        </tr>
+        <tr>
+          <td>Current Balance: </th>
+          <td class = 'text-align-right'><%= number_with_precision(current_user.portfolio.balance, precision: 2) %></th>
+        </tr>
+        <tr>
+          <td></td>
+          <td id='costboxNeg' class = 'text-align-right'></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>------------</td>
+        </tr>
+        <tr>
+          <td>Balance After Purchase:</td>
+          <td id = 'balanceAfterPurchase' class = 'text-align-right'></td>
+        </tr>
       </table>
     </div>
   </div>

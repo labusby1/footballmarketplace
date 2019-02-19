@@ -3,10 +3,27 @@
 $(document).on('turbolinks:load', function(){
   //Checking for page specific javascript
   if ($('meta[name=psj]').attr('controller') == 'transactors' && $('meta[name=psj]').attr('action') == 'new'){
+    // Global variable assignement
     var theForm = $('#new-transactor-form');
     var submitBtn = $('#form-submit-btn');
     var pricePer = $('#price-per-transactor-form').get(0).dataset.pricePer;
-  
+    var stockQuantityDefault = parseInt($('#price-per-transactor-form').get(0).dataset.idealNumberSold);
+    var originalBalance = parseFloat($('#price-per-transactor-form').get(0).dataset.currentBalance);
+    var outputtedCost = Math.round(stockQuantityDefault * pricePer*100)/100;
+    var outputtedTableBought = $('#stocks-to-be-bought');
+    var outputtedTableCost = $('#costbox');
+    var outputtedTableCostNeg = $('#costboxNeg');
+    var outputtedTableBalance = $('#balanceAfterPurchase');
+    
+    
+    // As a default the transaction table will hold stockQuantityDefault number of stocks
+    // ouputtedTableBought.append('')
+    outputtedTableBought.append(stockQuantityDefault);
+    // As a default the transaction table will hold the stockQuantityDeault * pricePer as the trnasaction cost
+    outputtedTableCost.append(outputtedCost);
+    outputtedTableCostNeg.append(-outputtedCost)
+    outputtedTableBalance.append((originalBalance - outputtedCost).toFixed(2));
+    
     //Target transaction quantity input box.
     var stockQuantityBox = $('#transaction-quantity');
     stockQuantityBox.change(function(){
@@ -16,13 +33,23 @@ $(document).on('turbolinks:load', function(){
       //The quantity * price_per will show the total transaction cost.
       var stockQuantity = $('#transaction-quantity').val();
       var outputted = stockQuantity * pricePer;
-      var para = document.createElement("P");                       // Create a <p> element
-      var t = document.createTextNode(outputted);  // Create a text node
-      para.appendChild(t);                                  // Append the text to <p>
-      document.getElementById("calculate-transaction").appendChild(para); 
+      
+      //The quantity needs to be updatted in the transaction table
+      document.getElementById("stocks-to-be-bought").innerHTML = '';
+      outputtedTableBought.append(stockQuantity);
+      
+      // And the two costs needs to be updatted
+      document.getElementById("costbox").innerHTML = '';
+      outputtedTableCost.append(outputted.toFixed(2));
+      document.getElementById('costboxNeg').innerHTML = '';
+      outputtedTableCostNeg.append(-outputted.toFixed(2));
+      
+      // Final balance needs to be updatted aswell
+      document.getElementById("balanceAfterPurchase").innerHTML = '';
+      outputtedTableBalance.append((originalBalance - outputted).toFixed(2))
+      
+      
     });
-    
-    
     
     //When user clicks submit,
     submitBtn.click(function(event){
