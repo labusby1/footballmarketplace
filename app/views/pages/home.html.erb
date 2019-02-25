@@ -1,4 +1,13 @@
-<h1>Home page</h1>
+
+<div class = "container">
+  <div class = "row">
+    <div class = "col-lg-12 text-center background-color-home home-image-resizing">
+       <%= image_tag('stadium_flood_lights.PNG') %>
+    </div>
+  </div>
+</div>
+
+
 <% if user_signed_in? %>
   <% if current_user.portfolio %>
     <!-- If a user is logged in, they need a link to view their portfolio, and a link to build their portfolio -->
