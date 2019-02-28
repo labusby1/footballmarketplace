@@ -11,6 +11,12 @@
   <div class = "form-group">
     <%= f.hidden_field :otm_id, :value => params[:onthemarket] %>
   </div>
+  <div class = "form-group">
+    <%= f.hidden_field :sold_on, :value => Time.now.strftime("%d/%m/%Y %H:%M") %>
+  </div>
+  <div class = "form-group">
+    <%= f.hidden_field :stock_symbol, :value => @otmobj.stocks_on_market %>
+  </div>
   
   <div class = "row">
     <div class = "col-md-6">

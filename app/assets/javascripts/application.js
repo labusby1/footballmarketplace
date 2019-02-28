@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require jquery
 //= require rails.validations
+// = require raphael
+// = require morris
 //= require_tree .
