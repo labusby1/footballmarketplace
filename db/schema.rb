@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_27_200006) do
+ActiveRecord::Schema.define(version: 2019_02_28_154619) do
 
   create_table "beings", force: :cascade do |t|
     t.string "family"
@@ -133,8 +133,8 @@ ActiveRecord::Schema.define(version: 2019_02_27_200006) do
     t.integer "moveable"
     t.text "stocks_to_move"
     t.integer "otm_id"
-    t.date "sold_on"
     t.string "stock_symbol"
+    t.datetime "sold_on"
   end
 
   create_table "users", force: :cascade do |t|
