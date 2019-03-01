@@ -18,15 +18,42 @@
             <!-- Search database for transactors whose stocks are owned by current user, making sure to limit the return date to just 
             sold_on and price_per. I then store that information as a json hash and use a content tag to send information to js file
             which then plots the chart. -->
+            
+            <!-- I'd like for the default chart displayed to be the most valuable stock at the time. To determine this, while iterating
+            through each of the stocks owned by current user I will save the most valuable one as a variable mvs. When a more valuable stock
+            is found the mvs is replaced and the interation continues until all stocks are tested. msv = Most Valuable Stock -->
+            <% mvs = nil %>
+            <% mvs_value = 0 %>
             <% array_of_stocks.each do |stockSym| %>
               <% id_string = 'transactor_chart_' + stockSym %>
               <!-- Store a hash of the transactors' sold_on and price_per values -->
-              <% @trans = Transactor.where(stock_symbol: "CHE").select(:sold_on, :price_per).as_json.map(&:symbolize_keys) %>
+              <% @trans = Transactor.where(stock_symbol: stockSym).select(:sold_on, :price_per).order(:sold_on) %>
+              <% if mvs = !nil %>
+              
+                <%# if mvs is not nil. Then we need to test whether mvs-value is more than the new price_per. If it is we continue as normal
+                if not mvs-value becomes what ever the price_per value is. %>
+                <% price_test = @trans.last.price_per %>
+                <% if price_test > mvs_value %>
+                  <% mvs = stockSym %>
+                  <% mvs_value = price_test %>
+                <% end %>
+                
+              <% else %>
+                <% mvs = stockSym %>
+                <% mvs_value = @trans.order(:sold_on).last.price_per %>
+              <% end %>
+              
+              <% @trans.as_json.map(&:symbolize_keys) %>
               <%= content_tag :div, '', id: id_string, data: {transactors: @trans}%>
             <% end %>
-            
+            <%# now i have the most valuable stock symbol which is store in mvs %>
+            <%= content_tag :div, '', id: 'mvs-string-tag', data: mvs %>
+           
+           
+           
             <!-- Select box whose options are the unique stock symbols owned by current_user -->
             <select id = "select-a-stock">
+              <option value="" selected disabled hidden>Select Stock</option>
               <% for i in 0..array_of_stocks.length - 1 %>
                 <option><%= array_of_stocks[i] %></option>
               <% end %>
