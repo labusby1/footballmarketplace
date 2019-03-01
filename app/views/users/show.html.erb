@@ -10,17 +10,18 @@
             <!-- A space to chart the value of the current_user's stocks over time -->
             <!-- User should select the stock they wish to view the chart for -->
             <h4 class = "text-center">Stocks owned by <%= current_user.portfolio.first_name %></h4>
-            <% array_of_stocks = [] %>
-            <%#?should this be uniq? ie. Stock.where(portfolio_id: current_user.portfolio.id).uniq.each %>
-            <% Stock.where(portfolio_id: current_user.portfolio.id).each do |stk| %>
-              <% array_of_stocks << stk.symbol %>
-              <% array_of_stocks = array_of_stocks.uniq %>
-            <% end %>
             
-            <!-- I really should limit the db search return to just the sold_on and price_per to save on performance -->
+            <!-- Array of unique stock symbols owned by current user -->
+            <% array_of_stocks = [] %>
+            <% array_of_stocks = Stock.where(portfolio_id: current_user.portfolio.id).pluck(:symbol).uniq %>
+            
+            <!-- Search database for transactors whose stocks are owned by current user, making sure to limit the return date to just 
+            sold_on and price_per. I then store that information as a json hash and use a content tag to send information to js file
+            which then plots the chart. -->
             <% array_of_stocks.each do |stockSym| %>
               <% id_string = 'transactor_chart_' + stockSym %>
-              <% @trans = Transactor.where(stock_symbol: stockSym) %>
+              <!-- Store a hash of the transactors' sold_on and price_per values -->
+              <% @trans = Transactor.where(stock_symbol: "CHE").select(:sold_on, :price_per).as_json.map(&:symbolize_keys) %>
               <%= content_tag :div, '', id: id_string, data: {transactors: @trans}%>
             <% end %>
             
@@ -30,6 +31,11 @@
                 <option><%= array_of_stocks[i] %></option>
               <% end %>
             </select>
+            
+            <!-- What should the deafult chart thats displayed be????? -->
+            
+            
+            
             
             <!-- Output chart here. Morris js requires the height parameter to be included -->
             <div id = 'chart-output' style="height: 250px;"></div>
