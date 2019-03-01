@@ -11,15 +11,18 @@
             <!-- User should select the stock they wish to view the chart for -->
             <h4 class = "text-center">Stocks owned by <%= current_user.portfolio.first_name %></h4>
             <% array_of_stocks = [] %>
+            <%#?should this be uniq? ie. Stock.where(portfolio_id: current_user.portfolio.id).uniq.each %>
             <% Stock.where(portfolio_id: current_user.portfolio.id).each do |stk| %>
               <% array_of_stocks << stk.symbol %>
               <% array_of_stocks = array_of_stocks.uniq %>
             <% end %>
             
-            <% array_of_stocks.each do |string| %>
-              <% id_string = 'transactor_chart_' + string %>
+            <!-- I really should limit the db search return to just the sold_on and price_per to save on performance -->
+            <% array_of_stocks.each do |stockSym| %>
+              <% id_string = 'transactor_chart_' + stockSym %>
+              <% @trans = Transactor.where(stock_symbol: stockSym) %>
+              <%= content_tag :div, '', id: id_string, data: {transactors: @trans}%>
             <% end %>
-            
             
             <!-- Select box whose options are the unique stock symbols owned by current_user -->
             <select id = "select-a-stock">
@@ -28,10 +31,9 @@
               <% end %>
             </select>
             
-            <!-- Output chart here -->
-            <div id = 'chart-output'></div>
-            <% @trans = Transactor.where(stock_symbol: "ARS") %>
-            <%= content_tag :div, '', id: 'transactor_chart', data: {transactors: @trans}%>
+            <!-- Output chart here. Morris js requires the height parameter to be included -->
+            <div id = 'chart-output' style="height: 250px;"></div>
+            
           
           </div>
           <h4 class = "text-center well" id = 'on-the-rise'>Here will be a table(graph) of net_worth over time</h4>
