@@ -31,6 +31,6 @@ class TransactorsController < ApplicationController
   private
     def transactor_params
       #Whitelist parameters of the transactor
-      params.require(:transactor).permit(:buyer_id, :seller_id, :transaction_cost, :stocks_to_move, :moveable, :otm_id, :sold_on, :stock_symbol)
+      params.require(:transactor).permit(:buyer_id, :seller_id, :transaction_cost, :stocks_to_move, :moveable, :otm_id, :sold_on, :stock_symbol, :price_per)
     end
 end

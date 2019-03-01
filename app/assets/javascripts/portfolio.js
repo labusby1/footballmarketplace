@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function(){
     $('#select-a-stock').change(function(){
       var stockSelected = $(this).value;
       
-      // Clear all children html nodes for the transactor_chart element where. Essentially clearing the previous 
+      // Clear all children html nodes for the transactor_chart element where. This clears the previous 
       //selected chart.
       while (parentEl[0].firstChild) {
         parentEl[0].firstChild.remove();
