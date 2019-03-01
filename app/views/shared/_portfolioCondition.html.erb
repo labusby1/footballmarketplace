@@ -1,4 +1,7 @@
-<h2 class = "text-center portfolio-page-name-callout"> <%= current_user.portfolio.first_name %>'s Portfolio</h2>
+
+
+<h2 class = "text-center portfolio-page-name-callout"> <%= current_user.portfolio.first_name %>'s Portfolio </h2>
+<% current_user.portfolio.calc_net_worth() %>
 <h5>Net Worth:<span class= "portfolio-page-details">
   <%= sprintf( "%0.02f",current_user.portfolio.net_worth) %>
   </span>

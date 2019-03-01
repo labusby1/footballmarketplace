@@ -13,6 +13,10 @@ class TransactorsController < ApplicationController
       @transactor.transfer_stocks()
       @onthemarket = Onthemarket.find(@transactor.otm_id)
       
+      # Update net_worth for buyer and seller
+      Portfolio.find(@transactor.buyer_id).calc_net_worth()
+      Portfolio.find(@transactor.seller_id).calc_net_worth()
+      
       # If an otm is purchased but the number of stocks is less than ideal. A new otm must be made where the new ideal_numer_sold is the remaining number of stocks
       if @onthemarket.ideal_number_sold > @transactor.moveable
         Onthemarket.update(@onthemarket.id, :ideal_number_sold => @onthemarket.ideal_number_sold - @transactor.moveable, :least_possible => 1, :max_number_sold => @transactor.moveable)
