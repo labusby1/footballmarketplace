@@ -59,7 +59,14 @@
     
     <!-- Ticker Tape -->
     <div class = "container">
-      <marquee behavior="scroll" direction="left">HTML scrolling text... </marquee>
+      <% trans = Transactor.last %>
+      <% trans_pre_price = Transactor.find(Transactor.last.id - 1).price_per %>
+      <% price_change = trans.price_per - trans_pre_price%>
+      <marquee behavior="scroll" direction="left"><%= Stock.find_by(symbol: trans.stock_symbol).stock_name %>
+        : "<%= trans.stock_symbol %>" <%= sprintf('%.2f', trans.price_per) %>
+        <% if price_change < 0 %>
+          <font color= "red"><%= sprintf('%.2f', price_change) %></font>
+        <% end %></marquee>
       </br>
     </div>
 
