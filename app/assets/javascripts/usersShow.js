@@ -19,7 +19,8 @@ $(document).on('turbolinks:load', function(){
       ykeys: ['price_per'],
       // Labels for the ykeys -- will be displayed when you hover over the
       // chart.
-      labels: ['Price per stock']
+      labels: ['Price per stock'],
+      preUnits: '$'
     });
     
     
