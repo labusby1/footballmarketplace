@@ -54,6 +54,9 @@ gem 'jquery-rails'
 # Use clientside validations gem for client side validation on onthemarket creation form
 gem 'client_side_validations'
 
+#Use seedbank for implimenting test and dummy data to database
+gem 'seedbank'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
