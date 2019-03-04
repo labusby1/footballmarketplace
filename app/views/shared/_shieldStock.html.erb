@@ -36,6 +36,8 @@ For example passing in Onthemarket.find(1) as one object-->
       marketplace page -->
       <% if otm1.portfolio_id != current_user.portfolio.id && request.path_info == user_portfolio_onthemarkets_path(user_id: current_user.id) %>
         <p><%= link_to 'Purchase Now', new_user_transactor_path(user_id: current_user.id, onthemarket: otm1.id) %></p>
+      <% elsif otm1.portfolio_id = current_user.portfolio.id && request.path_info == user_portfolio_onthemarkets_path(user_id: current_user.id)%>
+        
       <% end %>
     </div>
   </div>

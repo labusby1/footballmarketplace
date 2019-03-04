@@ -69,19 +69,29 @@
             
           
           </div>
-          <h4 class = "text-center well" id = 'on-the-rise'>Here will be a table(graph) of net_worth over time</h4>
-          <h4 class = "text-center well">And here is a link to create a purchase or sale
-          <!-- Here is a link to a form to create a marketplace transaction (object: onthemarket) -->
-          <%= link_to "Create a marketplace transaction", new_user_portfolio_onthemarket_path(user_id: params[:id]) %>
-          
-          <br/>
-          <%= link_to "Purchase stocks on the marketpalce", new_user_portfolio_onthemarket_path(buying: true, user_id: params[:id]), class: 'btn btn-success btn-lg btn-block' %>
-          <br/>
-          <br/>
-          <% if current_user.portfolio.stocks.length != 0 %>
-            <%= link_to "Sell stocks from your portfolio", new_user_portfolio_onthemarket_path(buying: false, user_id: params[:id]), class: 'btn btn-success btn-lg' %></h4>
-          <% end %>
-          <h4 class = "text-center well"> And here will be the stocks drop down menu</h4>
+            <h4 class = "text-center well" id = 'on-the-rise'>Here will be a table(graph) of net_worth over time</h4>
+            <h4 class = "text-center well">And here is a link to create a purchase or sale
+            <!-- Here is a link to a form to create a marketplace transaction (object: onthemarket) -->
+            <%= link_to "Create a marketplace transaction", new_user_portfolio_onthemarket_path(user_id: params[:id]) %>
+            
+            <br/>
+            <%= link_to "Purchase stocks on the marketpalce", new_user_portfolio_onthemarket_path(buying: true, user_id: params[:id]), class: 'btn btn-success btn-lg btn-block' %>
+            <br/>
+            <br/>
+            <% if current_user.portfolio.stocks.length != 0 %>
+              <%= link_to "Sell stocks from your portfolio", new_user_portfolio_onthemarket_path(buying: false, user_id: params[:id]), class: 'btn btn-success btn-lg' %></h4>
+            <% end %>
+            <div class = "well">
+              <h2 class = "text-center">Current Listings</h2>
+              <% @otm_objs.each do |otm| %>
+                <h4><%= otm.ideal_number_sold %> x <%= otm.stocks_on_market %> Stock</h4>
+                <p>Price per stock: <%= otm.price_per %></p>
+                <p>Listing active since: <%= otm.updated_at.to_date %></p>
+                <%= link_to 'Remove Listing', user_portfolio_onthemarket_path(user_id: current_user.id, id: otm.id), 
+                  :confirm => "Are you sure?", :method => :delete %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

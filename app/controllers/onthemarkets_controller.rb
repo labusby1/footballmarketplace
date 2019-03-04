@@ -30,6 +30,19 @@ class OnthemarketsController < ApplicationController
     end
   end
   
+  def destroy
+    @user = User.find(params[:user_id])
+    @onthemarket = Onthemarket.find(params[:id])
+    stock_activate = Stock.where(portfolio_id: @user.id, active: false,
+      symbol: @onthemarket.stocks_on_market).take(@onthemarket.ideal_number_sold)
+    stock_activate.each do |sa|
+      sa.active = true
+      sa.save
+    end
+    @onthemarket.destroy
+    redirect_to user_path(user_id: @user.id)
+  end
+  
   def index
     @onthemarkets = Onthemarket.all
     @user = User.find(params[:user_id])

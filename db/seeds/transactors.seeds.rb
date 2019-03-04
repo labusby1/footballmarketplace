@@ -26,5 +26,5 @@ while @i < @stop do
   @portfolios[:seller] = placeholder
   
   @i += 1
-  sleep 60
+  sleep 5.minute
 end
