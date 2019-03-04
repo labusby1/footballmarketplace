@@ -60,19 +60,34 @@
     
     <!-- Ticker Tape -->
     <div class = "container-fluid ticker-tape">
-      <% trans = Transactor.last %>
-      <% trans_pre_price = Transactor.find(Transactor.last.id - 1).price_per %>
-      <% price_change = trans.price_per - trans_pre_price%>
-      <marquee behavior="scroll" direction="left"><font color=  "white"><%= Stock.find_by(symbol: trans.stock_symbol).stock_name %>
-         (<%= trans.stock_symbol %>) : <%= sprintf('%.2f', trans.price_per) %>, </font>
-        <% if price_change < 0 %>
-          <font color= "red"><%= sprintf('%.2f', price_change) %></font>
-        <% elsif price_change > 0 %>
-          <font color= "green">+<%= sprintf('%.2f', price_change) %></font>
-        <% elsif %>
-          +<% sprintf('%.2f', price_change) %>
-        <% end %></marquee>
-      </br>
+      <%# collect the stock symbols and limit to 3 results %>
+      <% array_of_symbols = []%>
+      <% array_of_symbols = Transactor.pluck(:stock_symbol).uniq %>
+      <marquee behavior="scroll" direction="left">
+      <% array_of_symbols.each do |sym| %>
+        <% search_result = Transactor.where(stock_symbol: sym).order(:sold_on).take(2) %>
+        <% if search_result.length == 2 %>
+          <%# successfully found at least two objects satisfying search criteria %>
+          <%# calculate the change in price between last two Transactors of this type %>
+          <% price_change = search_result.first.price_per - search_result.last.price_per %>
+          <font color=  "black"><%= Stock.find_by(symbol: sym).stock_name %> (<%= search_result.first.stock_symbol %>)
+            : <%= sprintf('%.2f', search_result.first.price_per) %>, </font>
+          <% if price_change < 0 %>
+            <font color= "red"><%= sprintf('%.2f', price_change) %></font>
+          <% elsif price_change > 0 %>
+            <font color= "green">+<%= sprintf('%.2f', price_change) %></font>
+          <% elsif %>
+            +<% sprintf('%.2f', price_change) %>
+          <% end %>
+          
+        <% else %>
+          <%# stock has either only one Transactor or none-- so we should skip trying to find a change %>
+          
+        <% end %>
+        <font color = "black">&nbsp;&nbsp;</font>
+      <% end %>
+      </marquee>
+        
     </div>
 
     
