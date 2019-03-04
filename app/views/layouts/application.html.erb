@@ -27,8 +27,9 @@
           </button>
           <%= link_to '/', class: "navbar-brand" do %>
             <div id = "site-name-navbar">
-              
-              Football Marketplace
+              <font color = "#000000">
+                Football Marketplace
+              </font>
             </div>
           <% end %>
         </div>
@@ -58,14 +59,18 @@
     <!-- End of navigation bar -->
     
     <!-- Ticker Tape -->
-    <div class = "container">
+    <div class = "container-fluid ticker-tape">
       <% trans = Transactor.last %>
       <% trans_pre_price = Transactor.find(Transactor.last.id - 1).price_per %>
       <% price_change = trans.price_per - trans_pre_price%>
-      <marquee behavior="scroll" direction="left"><%= Stock.find_by(symbol: trans.stock_symbol).stock_name %>
-        : "<%= trans.stock_symbol %>" <%= sprintf('%.2f', trans.price_per) %>
+      <marquee behavior="scroll" direction="left"><font color=  "white"><%= Stock.find_by(symbol: trans.stock_symbol).stock_name %>
+         (<%= trans.stock_symbol %>) : <%= sprintf('%.2f', trans.price_per) %>, </font>
         <% if price_change < 0 %>
           <font color= "red"><%= sprintf('%.2f', price_change) %></font>
+        <% elsif price_change > 0 %>
+          <font color= "green">+<%= sprintf('%.2f', price_change) %></font>
+        <% elsif %>
+          +<% sprintf('%.2f', price_change) %>
         <% end %></marquee>
       </br>
     </div>
