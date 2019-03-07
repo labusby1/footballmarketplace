@@ -9,7 +9,7 @@
           <div class = "well">
             <!-- A space to chart the value of the current_user's stocks over time -->
             <!-- User should select the stock they wish to view the chart for -->
-            <h4 class = "text-center">Stocks owned by <%= current_user.portfolio.first_name %></h4>
+            <h2 class = "text-center label-callout">Stocks owned by <%= current_user.portfolio.first_name %></h2>
             
             <!-- Array of unique stock symbols owned by current user -->
             <% array_of_stocks = [] %>
@@ -58,30 +58,41 @@
                 <option><%= array_of_stocks[i] %></option>
               <% end %>
             </select>
-            
-            <!-- What should the deafult chart thats displayed be????? -->
-            
-            
-            
-            
+      
             <!-- Output chart here. Morris js requires the height parameter to be included -->
             <div id = 'chart-output' style="height: 250px;"></div>
-            
-          
+    
           </div>
-            <h4 class = "text-center well">And here is a link to create a purchase or sale
-            <!-- Here is a link to a form to create a marketplace transaction (object: onthemarket) -->
-            <%= link_to "Create a marketplace listing", new_user_portfolio_onthemarket_path(user_id: params[:id]) %>
+          
+          
+          <!-- Sell and Purchase stock from the market -->
+          <div class = "well">
+            <h2 class = "text-center label-callout">Sell & Purchase Stock</h2>
+            <br/>
             
-            <br/>
-            <%= link_to "Purchase stocks on the marketpalce", new_user_portfolio_onthemarket_path(buying: true, user_id: params[:id]), class: 'btn btn-success btn-lg btn-block' %>
-            <br/>
-            <br/>
+            <%# links to sell and purchase stock %>
             <% if current_user.portfolio.stocks.length != 0 %>
-              <%= link_to "Sell stocks from your portfolio", new_user_portfolio_onthemarket_path(buying: false, user_id: params[:id]), class: 'btn btn-success btn-lg' %></h4>
+              <div class = "container">
+                <div class = "row">
+                  <div class = "col-md-5 offset-md-2">
+                    <%= link_to "Sell stocks from your portfolio", new_user_portfolio_onthemarket_path(buying: false, user_id: params[:id]), class: 'btn btn-success btn-lg' %></h4>
+                  </div>
+                  <div class = "col-md-2 ">
+                    <%= link_to "Market place search", '#', class: 'btn btn-primary btn-lg ', style: 'float:right;' %>
+                  </div>
+                </div>
+              </div>
+            <% else %>
+              <%= link_to "Market place search", '#', class: 'btn btn-primary btn-lg ', style: 'float:right;' %>
             <% end %>
+            <br/>
+            
+            
+          </div>
+          
+          
             <div class = "well">
-              <h2 class = "text-center" style = "text-decoration: underline;">Current Listings</h2>
+              <h2 class = "text-center label-callout" >Current Listings</h2>
               <% if @otm_objs.any? %>
                 <% @otm_objs.each do |otm| %>
                   <h4><%= otm.ideal_number_sold %> x <%= otm.stocks_on_market %> Stock</h4>
@@ -89,7 +100,7 @@
                   <p>Listing active since: <%= otm.updated_at.to_date %></p>
                   <%= link_to 'Remove Listing', user_portfolio_onthemarket_path(user_id: current_user.id, id: otm.id), 
                     :confirm => "Are you sure?", :method => :delete %>
-                <% end %>
+              <% end %>
               <% else %>
                 <h4 class = 'text-center'>You have no active listings at this time!</h4>
                 <p class = 'text-center'><%= link_to 'Create a listing.', new_user_portfolio_onthemarket_path(buying: false, user_id: params[:id]) %></p>
