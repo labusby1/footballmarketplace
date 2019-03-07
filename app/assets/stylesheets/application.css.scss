@@ -16,6 +16,8 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 
 .header-style{
@@ -173,4 +175,8 @@
 
 .text-color-red{
   color:red;
+}
+
+.homepage-signup-ad{
+  font-size:100px; margin-top:18px;
 }
