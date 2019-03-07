@@ -10,9 +10,16 @@ create the object and are brought here -->
       <ul class = "list-unstyled">
         <!-- For each of the onthemarket objects currently available, a list item
         is created. -->
-        <% @onthemarkets.each do |otm| %>
+        <% if @onthemarkets.any? %>
+          <% @onthemarkets.each do |otm| %>
+            <li>
+              <%= render '/shared/shieldStock', :otm1 => otm %>
+            </li>
+          <% end %>
+        <% else %>
           <li>
-            <%= render '/shared/shieldStock', :otm1 => otm %>
+            <h4>No active listings are posted!</h4>
+            <p>Come back soon, or <%= link_to 'create your own listing!', users_path(users_id: current_user.id)</p>
           </li>
         <% end %>
       </ul>
