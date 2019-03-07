@@ -10,6 +10,7 @@ create the object and are brought here -->
       <ul class = "list-unstyled">
         <!-- For each of the onthemarket objects currently available, a list item
         is created. -->
+        <h2 class = "text-center" style = "text-decoration: underline;">Public Market & Active Listings</h2><br/>
         <% if @onthemarkets.any? %>
           <% @onthemarkets.each do |otm| %>
             <li>
@@ -18,9 +19,9 @@ create the object and are brought here -->
           <% end %>
         <% else %>
           <li>
-            <h4>No active listings are posted!</h4>
-            <p>Come back soon, or <%= link_to 'create your own listing!', users_path(users_id: current_user.id)</p>
-          </li>
+            <h4 class = "text-center">No active listings are posted at this time!</h4>
+            <p class = "text-center">Come back soon, or <%= link_to 'create your own listing!', user_path(id: current_user.id) %></p>
+            </li>
         <% end %>
       </ul>
     </div>
