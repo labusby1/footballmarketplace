@@ -1,5 +1,5 @@
 <li>
   <h4><%= ipo.stock_name %></h4>
   <p>Symbol: <%= ipo.symbol %>
-  First public offering: <%= ipo.created_at.date %></p>
+  First public offering: <%= ipo.created_at.strftime('%a %d %b %Y') %></p>
 </li>

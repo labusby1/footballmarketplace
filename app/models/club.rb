@@ -31,7 +31,6 @@ class Club < ActiveRecord::Base
         symbol = symbol[0..2]
       end
       
-      
     else
       #Club name is one word long
       lgth = @name.length
