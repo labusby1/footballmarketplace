@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_11_132929) do
+ActiveRecord::Schema.define(version: 2019_03_11_161434) do
 
   create_table "beings", force: :cascade do |t|
     t.string "family"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_132929) do
     t.integer "portfolio_id"
     t.integer "possession_id"
     t.integer "being_id"
+    t.boolean "ipo"
   end
 
   create_table "stocks_transactors", id: false, force: :cascade do |t|
