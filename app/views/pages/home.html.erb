@@ -11,15 +11,37 @@
 
 
 <% if user_signed_in? %>
-  <%# Confirmation that user is signed in. %>
+  <%# Confirmation that user is signed in and if their portfolio has been created yet. %>
   <% if current_user.portfolio %>
+    <div class = "container">
+      <div class= "row">
+        <div class= "col-lg-4">
+          <h2>Welcome Back <%= current_user.portfolio.first_name %>!</h2>
+        </div>
+      </div>
+    </div>
     <%# If a user is logged in, they need a link to view their portfolio, and a link to build their portfolio %>
     <%= link_to 'View Your Portfolio', user_path(current_user.id) %>
     <br/>
     <%= link_to 'Edit Your Portfolio Information', edit_user_portfolio_path(user_id: current_user.id) %>
+    
+    
   <% else %>
-  <!-- If a user hasn't built a portfolio, they will need to enter their information -->
-    <%= link_to 'Create your portfolio', new_user_portfolio_path(user_id: current_user.id) if user_signed_in? %>
+  <%# Encourage the new user to fillout their portfolio info before proceeding %>
+    <div class = "container">
+      <div class = "row" >
+        <div class = "col-lg-8 col-lg-offset-3">
+          <div class ="col-md-2">
+            <i class='fas fa-futbol homepage-portfolio-create'></i>
+          </div>
+          <div class = "col-md-8">
+            <h1>Welcome to Football Marketplace!</h1>
+            <p>To get started, please fillout your <%= link_to 'portfolio information here.', new_user_portfolio_path(user_id: current_user.id) %> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
   <% end %>
   
   
@@ -38,6 +60,7 @@
       </div>
     </div>
     <br/>
+    
     <div class="row">
       <div class = "col-lg-8 col-lg-offset-2">
         <div class="col-lg-4 col-lg-offset-2 text-center">
@@ -50,7 +73,11 @@
         </div>
       </div>
     </div>
-  
+    
+    
+    
+        
+        
   </div>
 <% end %>
 
@@ -69,3 +96,14 @@
     </div>
   </div>
 </div>
+
+
+<br/>
+<div class = "container">
+  <div class = "row">
+    <div class ="col-lg-10 col-lg-offset-1">
+      <p><h4>What is Football Marketplace?</h4>Football Marketplace is a place to buy, sell and trade fake stock in your favorite european football clubs, players and managers. Trades of stocks are entirely dependent on the users playing the game thus creating a true free market. This means sustained success of teams, players, and even managers drives trading prices up while extended periods of real world loss and poor performance drives prices down. The money traded throughout the game is entirely fictional and does not represent real world currency of any kind.</h4>
+      <p>
+  </div>
+</div>
+<br/>
