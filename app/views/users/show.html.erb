@@ -11,9 +11,9 @@
             <!-- User should select the stock they wish to view the chart for -->
             <h2 class = "text-center label-callout">Stocks owned by <%= current_user.portfolio.first_name %></h2>
             
-            <!-- Array of unique stock symbols owned by current user -->
+            <%# Array of unique stock symbols owned by current user and not ipo %>
             <% array_of_stocks = [] %>
-            <% array_of_stocks = Stock.where(portfolio_id: current_user.portfolio.id).pluck(:symbol).uniq %>
+            <% array_of_stocks = Stock.where(portfolio_id: current_user.portfolio.id, ipo: false).pluck(:symbol).uniq %>
             
             <!-- Search database for transactors whose stocks are owned by current user, making sure to limit the return date to just 
             sold_on and price_per. I then store that information as a json hash and use a content tag to send information to js file
@@ -29,6 +29,7 @@
               <!-- Store a hash of the transactors' sold_on and price_per values -->
               <% @trans = Transactor.where(stock_symbol: stockSym).select(:sold_on, :price_per).order(:sold_on) %>
               <% if mvs = !nil %>
+              
               
                 <%# if mvs is not nil. Then we need to test whether mvs-value is more than the new price_per. If it is we continue as normal
                 if not mvs-value becomes what ever the price_per value is. %>

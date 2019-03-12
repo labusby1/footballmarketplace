@@ -18,7 +18,7 @@ the number of available stocks to choose from -->
       <!-- an array is created and filled with the stocks available to the user to sell, the array will only contain the unique values of the stocks because we don't want
       to see x number of the same information, just how many stocks of those 'qualities' the user has. -->
       <% array_of_symbols = [] %>
-      <% array_of_symbols = Stock.where(portfolio_id: current_user.id).all.map{|t| t.symbol}.uniq %>
+      <% array_of_symbols = Stock.where(portfolio_id: current_user.portfolio.id).all.map{|t| t.symbol}.uniq %>
       <% array_of_symbols.each do |stk| %>
       <!-- for each of the unique stock information sets, a new row in the table is created -->
         <tr>

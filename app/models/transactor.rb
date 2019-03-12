@@ -30,13 +30,16 @@ class Transactor < ActiveRecord::Base
       #Stock is transfered to new owner
       stock.portfolio_id = customer.id
       stock.active = true
+      if stock.ipo?
+        stock.ipo = false
+      end
       stock.save!
     end
   end
   
   private
     def transaction_success
-      Logger.info "Transfer succeed for Account #{self.to_param}"
+      Logger.info "Transfer succeeded for Account #{self.to_param}"
     end
     def transaction_failed
       Logger.warn "Transfer failed for Account #{self.to_param}"
