@@ -17,11 +17,7 @@ class OnthemarketsController < ApplicationController
     if @onthemarket.save
       
       #Must switch the stocks active trait that make up the onthemarket object to false
-      stk_arr = Stock.where(portfolio_id: current_user.portfolio.id, active: true, symbol: @onthemarket.stocks_on_market).take(@onthemarket.ideal_number_sold)
-      for i in 0..stk_arr.length-1 do
-        stk_arr[i].active = false
-        stk_arr[i].save
-      end
+      @onthemarket.sellThese
       
       flash[:success] = "Onthemarket Created!"
       redirect_to user_portfolio_onthemarkets_path
@@ -31,14 +27,7 @@ class OnthemarketsController < ApplicationController
   end
   
   def destroy
-    @user = User.find(current_user.id)
-    @onthemarket = Onthemarket.find(params[:id]) # params[:id] is the is of the onthemarket object!
-    stock_activate = Stock.where(portfolio_id: @user.id, active: false,
-      symbol: @onthemarket.stocks_on_market).take(@onthemarket.ideal_number_sold)
-    stock_activate.each do |sa|
-      sa.active = true
-      sa.save
-    end
+    @onthemarket.buyThese
     @onthemarket.destroy
     redirect_to user_path(user_id: @user.id)
   end

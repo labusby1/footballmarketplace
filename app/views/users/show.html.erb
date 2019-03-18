@@ -27,21 +27,25 @@
             <% array_of_stocks.each do |stockSym| %>
               <% id_string = 'transactor_chart_' + stockSym %>
               <!-- Store a hash of the transactors' sold_on and price_per values -->
-              <% @trans = Transactor.where(stock_symbol: stockSym).select(:sold_on, :price_per).order(:sold_on) %>
-              <% if mvs = !nil %>
-              
-              
-                <%# if mvs is not nil. Then we need to test whether mvs-value is more than the new price_per. If it is we continue as normal
-                if not mvs-value becomes what ever the price_per value is. %>
-                <% price_test = @trans.last.price_per %>
-                <% if price_test > mvs_value %>
-                  <% mvs = stockSym %>
-                  <% mvs_value = price_test %>
-                <% end %>
+              <% @trans = Transactor.where(stock_symbol: stockSym) %>
+              <% if @trans.count == !nil %>
+                <% @trans = @trans.select(:sold_on, :price_per).order(:sold_on) %>
+                <% if mvs = !nil %>
                 
-              <% else %>
-                <% mvs = stockSym %>
-                <% mvs_value = @trans.order(:sold_on).last.price_per %>
+                
+                  <%# if mvs is not nil. Then we need to test whether mvs-value is more than the new price_per. If it is we continue as normal
+                  if not mvs-value becomes what ever the price_per value is. %>
+                  
+                  <% price_test = @trans.last.price_per %>
+                  <% if price_test > mvs_value %>
+                    <% mvs = stockSym %>
+                    <% mvs_value = price_test %>
+                  <% end %>
+                  
+                <% else %>
+                  <% mvs = stockSym %>
+                  <% mvs_value = @trans.order(:sold_on).last.price_per %>
+                <% end %>
               <% end %>
               
               <% @trans.as_json.map(&:symbolize_keys) %>

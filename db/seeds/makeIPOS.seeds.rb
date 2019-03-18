@@ -3,7 +3,9 @@ puts 'Making ipos for Premier League clubs...'
 
 admin = User.find_by(admin: true)
 clubs = []
-clubs << Club.find_by(location: "Munich")
+
+#take the first 20 clubs which are the english premier league clubs
+clubs = Club.take(20)
 
 
 @stocksQuantity = 3
@@ -24,7 +26,8 @@ clubs.each do |clb|
   end
   
   puts 'Adding Onthemarket objects for ' + clb.name
-  Onthemarket.create(buying: false, portfolio_id: admin.portfolio.id, stocks_on_market: symbolMade, 
-    ideal_number_sold: @stocksQuantity, least_possible: 1, price_per: @initialPrice, max_number_sold: @stocksQuantity)
+  otm = Onthemarket.create(buying: false, portfolio_id: admin.portfolio.id, stocks_on_market: symbolMade, 
+    ideal_number_sold: @stocksQuantity, least_possible: 1, price_per: @initialPrice, max_number_sold: @stocksQuantity, ipo: true)
+  otm.sellThese
 end
 

@@ -88,7 +88,8 @@
     <div class ="col-md-3 well">
       <h2 class = "text-center label-callout">IPOs</h2>
       <%# Take the five latest ipos to be created %>
-      <% ipos = Stock.where(ipo: true).order(:created_at).take(5) %>
+      
+      <% ipos = Onthemarket.where(ipo: true).order(:created_at).take(5) %>
       <ul>
         <% ipos.each do |stk|%>
         <%# render a list containing these stocks %>

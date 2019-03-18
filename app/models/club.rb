@@ -45,7 +45,8 @@ class Club < ActiveRecord::Base
     
     #compare symbol result to all stocks to make sure it doesn't already exist
     def checkAvailable(sym)
-      alph = ("x".."z").to_a
+      alph = ("a".."z").to_a
+      alph = alph.sort! {|x,y| y <=> x }
       i = 0
       while Stock.exists?(symbol: sym) do 
         sym[2] = alph[i].upcase
