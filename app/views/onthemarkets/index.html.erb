@@ -12,6 +12,7 @@ create the object and are brought here -->
         is created. -->
         <h2 class = "text-center" style = "text-decoration: underline;">Public Market & Active Listings</h2><br/>
         <% if @onthemarkets.any? %>
+          <% @onthemarkets = @onthemarkets.take(25) %>
           <% @onthemarkets.each do |otm| %>
             <li>
               <%= render '/shared/shieldStock', :otm1 => otm %>
