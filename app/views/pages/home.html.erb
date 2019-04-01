@@ -85,23 +85,31 @@
 <%# Regardless if a user is currently logged in, we render the IPO, trending stocks and help/info categories below %>
 <div class = 'container'>
   <div class = 'row'>
-    <div class ="col-md-3 well">
+    <div class ="col-md-5 well">
       <h2 class = "text-center label-callout">IPOs</h2>
       <%# Take the five latest ipos to be created %>
       
       <% ipos = Onthemarket.where(ipo: true).order(:created_at).take(5) %>
       <ul>
         <% ipos.each do |stk|%>
-        <%# render a list containing these stocks %>
-          <%= render '/shared/ipos', :ipo => stk %> 
+          <div class = "container">
+            <%# render a list containing these stocks %>
+            <%= render '/shared/ipos', :ipo => stk %> 
+          </div>
         <% end %>
       </ul>
     </div>
-    <div class ="col-md-4 col-md-offset-1 well">
+    <div class ="col-md-5 col-md-offset-2 well">
       <h2 class = "text-center label-callout">Trending Stocks</h2>
-    </div>
-    <div class = "col-md-3 col-md-offset-1 well">
-      <h2 class ="text-center label-callout">Help & Info</h2>
+      <ul>
+        <% trends = Transactor.order(:sold_on).take(5) %>
+        <% trends.each do |trn| %>
+          <div class = "container">
+            <%# render a list of trending stocks(for now recently traded) %>
+            <%= render '/shared/trending', :trn => trn %>
+          </div>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>
@@ -111,8 +119,9 @@
 <div class = "container">
   <div class = "row">
     <div class ="col-lg-10 col-lg-offset-1">
-      <p><h4>What is Football Marketplace?</h4>Football Marketplace is a place to buy, sell and trade fake stock in your favorite european football clubs, players and managers. Trades of stocks are entirely dependent on the users playing the game thus creating a true free market. This means sustained success of teams, players, and even managers drives trading prices up while extended periods of real world loss and poor performance drives prices down. The money traded throughout the game is entirely fictional and does not represent real world currency of any kind.</h4>
-      <p>
+      <p><h4>What is Football Marketplace?</h4>Football Marketplace is a place to buy, sell and trade fake stock in your favorite european football clubs, players and managers. Trades of stocks are entirely dependent on the users playing the game thus creating a free market. This means sustained success of teams, players, and even managers drives trading prices up while extended periods of real world loss and poor performance drives prices down. The money traded throughout the game is entirely fictional and does not represent real world currency of any kind.</h4>
+      </p>
+    </div>
   </div>
 </div>
 <br/>

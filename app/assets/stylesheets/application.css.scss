@@ -84,10 +84,10 @@
     -moz-transform-origin: 100% 100%;
     -ms-transform-origin: 100% 100%;
     -o-transform-origin: 100% 100%;
-    transform-origin :100% 100%;
+    transform-origin : 100% 100%;
 }
 
-#shield-text{
+#shield-text:after {
     width: 140px;
     height: 125px;
     text-align: center;
@@ -185,3 +185,6 @@
 .ipoTable{
   font-size:12px;
 }
+
+
+

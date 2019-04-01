@@ -1,7 +1,9 @@
 <li class= "container-fluid" style = "list-style:none;">
+  
   <% stk = Stock.find_by(symbol: ipo.stocks_on_market) %>
   <h4><%= stk.stock_name %></h4>
-  <p class = "ipoTable">Symbol: <%= ipo.stocks_on_market %>
-  Price per stock: <% sprintf('%.2f', ipo.price_per) %>
-  First public offering: <%= ipo.created_at.strftime('%a %d %b %Y') %></p>
+  <p class = "ipoTable">Symbol: <%= ipo.stocks_on_market %><br/>
+  Price per stock: <%= sprintf('%.2f', ipo.price_per) %><br/>
+  First public offering: <%= ipo.created_at.strftime('%d %b %Y') %></p>
+
 </li>

@@ -3,17 +3,25 @@ For example passing in Onthemarket.find(1) as one object-->
 <div class = "well row">
   <div class = "col-sm-4 text-center">
     <!-- Shield logo with stock information inside -->
+    
     <div id="shield">
+      yadadyada yada ydad
+      here is more place holder text
+      filling out the shapes
+      lets keep going...
+      almost there...
+      ok
       <div id = "shield-text">
         <!-- the symbol of the stocks being sold (som) is used to search database for these stocks -->
         <% som = otm1.stocks_on_market %>
         <br/>
         <% stock = Stock.find_by(symbol: som) %>
-        <%= stock.stock_name %>
+        <p><%= stock.stock_name %>
+        Here is some additonal text to filll the shapes' tex box</p>
         <% if stock.being_id == 2 %>
           <!-- Iterating through each league a club can be part of -->
           <% for i in 0..Club.find_by(name: stock.stock_name).leagues.length - 1 %>
-            <%= Club.find_by(name: stock.stock_name).leagues[i].name %>
+            <p><%= Club.find_by(name: stock.stock_name).leagues[i].name %></p>
           <% end %>
         <% else %>
           <!-- Here will be how i access the leagues if the stock isn't a club-->

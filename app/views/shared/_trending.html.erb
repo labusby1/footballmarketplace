@@ -1,0 +1,11 @@
+<li class= "container-fluid" style = "list-style:none;">
+  
+  <% if trn.stock_symbol && trn.stock_symbol != 'TEST' %>
+    <% stk = Stock.find_by(symbol: trn.stock_symbol) %>
+    <h4><%= stk.stock_name %></h4>
+    <p class = "ipoTable">Symbol: <%= stk.symbol %><br/>
+    Price per stock: <%= sprintf('%.2f', trn.price_per) %><br/>
+  <% end %>
+
+
+</li>
