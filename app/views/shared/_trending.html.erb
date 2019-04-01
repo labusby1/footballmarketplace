@@ -2,7 +2,7 @@
   
   <% if trn.stock_symbol && trn.stock_symbol != 'TEST' %>
     <% stk = Stock.find_by(symbol: trn.stock_symbol) %>
-    <h4><%= stk.stock_name %></h4>
+    <h4><b><%= stk.stock_name %></b></h4>
     <p class = "ipoTable">Symbol: <%= stk.symbol %><br/>
     Price per stock: <%= sprintf('%.2f', trn.price_per) %><br/>
   <% end %>

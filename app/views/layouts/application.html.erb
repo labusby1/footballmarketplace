@@ -70,9 +70,9 @@
         <% if search_result.length == 2 %>
           <%# successfully found at least two objects satisfying search criteria %>
           <%# calculate the change in price between last two Transactors of this type %>
-          <% price_change = search_result.first.price_per - search_result.last.price_per %>
+          <% price_change = search_result.last.price_per - search_result.first.price_per %>
           <font color=  "black"><%= Stock.find_by(symbol: sym).stock_name %> (<%= search_result.first.stock_symbol %>)
-            : <%= sprintf('%.2f', search_result.first.price_per) %>, </font>
+            : <%= sprintf('%.2f', search_result.last.price_per) %>, </font>
           <% if price_change < 0 %>
             <font color= "red"><%= sprintf('%.2f', price_change) %></font>
           <% elsif price_change > 0 %>
