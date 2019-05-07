@@ -14,18 +14,26 @@ $(document).on('turbolinks:load', function(){
     var outputtedTableCost = $('#costbox');
     var outputtedTableCostNeg = $('#costboxNeg');
     var outputtedTableBalance = $('#balanceAfterPurchase');
+    var stockQuantityBox = $('#transaction-quantity');
     
     
     // As a default the transaction table will hold stockQuantityDefault number of stocks
     // ouputtedTableBought.append('')
     outputtedTableBought.append(stockQuantityDefault);
     // As a default the transaction table will hold the stockQuantityDeault * pricePer as the trnasaction cost
-    outputtedTableCost.append(outputtedCost);
-    outputtedTableCostNeg.append(-outputtedCost)
+    outputtedTableCost.append(parseFloat(outputtedCost).toFixed(2));
+    outputtedTableCostNeg.append(parseFloat(-outputtedCost).toFixed(2));
     outputtedTableBalance.append((originalBalance - outputtedCost).toFixed(2));
     
+    //Quick purchase buttons will change the transaction quantity box which in turns changes the transaction table
+    var quickPurchase = $('#quick-purchase-one');
+    quickPurchase.click(function(){
+      event.preventDefault();
+      var quickPurchaseNumber = parseInt(quickPurchase.TextContent);
+      $('#transaction-quantity').text(quickPurchaseNumber);
+    });
+    
     //Target transaction quantity input box.
-    var stockQuantityBox = $('#transaction-quantity');
     stockQuantityBox.change(function(){
       //clear previous calculation from the div insides
       document.getElementById("calculate-transaction").innerHTML = '';
@@ -40,9 +48,9 @@ $(document).on('turbolinks:load', function(){
       
       // And the two costs needs to be updatted
       document.getElementById("costbox").innerHTML = '';
-      outputtedTableCost.append(outputted.toFixed(2));
+      outputtedTableCost.append(parseFloat(outputted).toFixed(2));
       document.getElementById('costboxNeg').innerHTML = '';
-      outputtedTableCostNeg.append(-outputted.toFixed(2));
+      outputtedTableCostNeg.append(parseFloat(-outputted).toFixed(2));
       
       // Final balance needs to be updatted aswell
       document.getElementById("balanceAfterPurchase").innerHTML = '';

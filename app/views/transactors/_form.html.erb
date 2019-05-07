@@ -33,9 +33,13 @@
        
       
       <%# Quick purchase buttons will show different values depending on the onthemarket objects given to start the form %>
+      <%# Transfer the value of the buttons to page specific js with content tags %>
       <br/><p class = 'inline-textbox'><b>Quick purchase:</b></p>
       <% ins = @otmobj.ideal_number_sold %><%# ins = "ideal number sold" or the most individual stocks the transaction could possibly involve %>
       <% lp = @otmobj.least_possible %><%# lp = "least possible" or the least number of individual stocks the transaction could possible involve %>
+      
+      
+      <%# TAKE A LOOK AT --- something about the logic doesn't make sense for getting to the last possible elsif. Don't want to deal with right now! %>
       <% if ins >= 1000 && lp <= 1000 %>
         <br/>
         <div class = "row">
@@ -84,7 +88,8 @@
       <% elsif %>
         <br/>
         <div class = "col-sm-4" style = "text-align:right">
-         <button stlye= "text-align:right"><%= ins %></button>
+         <button id="quick-purchase-one"><%= ins %></button>
+         
         </div>
         
       <% elsif%>
@@ -119,7 +124,7 @@
         
         <tr>
           <td>Cost Per Stock:</td>
-          <td class = 'text-align-right'><%= @otmobj.price_per %></td>
+          <td class = 'text-align-right'><%= sprintf('%.2f', @otmobj.price_per) %></td>
         </tr>
         <tr>
           <td>Stocks to be bought:</td>
@@ -136,7 +141,7 @@
         </tr>
         <tr>
           <td>Current Balance: </th>
-          <td class = 'text-align-right'><%= number_with_precision(current_user.portfolio.balance, precision: 2) %></th>
+          <td class = 'text-align-right'><%= sprintf('%.2f', current_user.portfolio.balance) %></th>
         </tr>
         <tr>
           <td></td>
